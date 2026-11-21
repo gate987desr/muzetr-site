@@ -28,6 +28,11 @@ function hashIp(ip) {
   return createHash("sha256").update(ip + "|muzetr").digest("hex").slice(0, 16);
 }
 
+// 用路径的哈希做 key，避免 %2F 这类编码在不同环节被解码导致读写不一致
+function hashPath(path) {
+  return createHash("sha1").update(path).digest("hex").slice(0, 20);
+}
+
 function decodeImage(dataUrl) {
   if (typeof dataUrl !== "string" || !dataUrl.startsWith("data:")) return null;
   const match = /^data:([^;]+);base64,(.+)$/s.exec(dataUrl);
@@ -56,7 +61,7 @@ export default async function handler(request) {
       return json({ count: keys.length, keys: keys.slice(0, 30) });
     }
     if (!pagePath) return json({ comments: [] });
-    const prefix = `c/${encodeURIComponent(pagePath)}/`;
+    const prefix = `c/${hashPath(pagePath)}/`;
     const { blobs } = await store.list({ prefix });
     const loaded = await Promise.all(
       blobs.slice(-300).map((blob) => store.get(blob.key, { type: "json" }).catch(() => null))
@@ -109,8 +114,9 @@ export default async function handler(request) {
   const id = randomUUID();
   const createdAt = Date.now();
   const comment = { id, name, body, image: imageUrl, createdAt };
-  await store.setJSON(`c/${encodeURIComponent(target)}/${String(createdAt).padStart(14, "0")}-${id}.json`, {
+  await store.setJSON(`c/${hashPath(target)}/${String(createdAt).padStart(14, "0")}-${id}.json`, {
     ...comment,
+    page: target,
     ipHash,
   });
   await store.set(rateKey, String(count + 1));
