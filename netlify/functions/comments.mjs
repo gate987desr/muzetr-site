@@ -49,36 +49,43 @@ function decodeImage(dataUrl) {
   return { mime, bytes, ext: ALLOWED_IMAGE[mime] };
 }
 
+function isAdmin(request) {
+  const token = process.env.ADMIN_TOKEN;
+  return Boolean(token) && request.headers.get("x-admin-token") === token;
+}
+
+function publicView(item) {
+  const { ipHash, ...rest } = item;
+  return rest;
+}
+
 export default async function handler(request) {
   const store = getStore({ name: STORE, consistency: "strong" });
   const url = new URL(request.url);
   const pagePath = (url.searchParams.get("path") || "").slice(0, 200);
+  const admin = isAdmin(request);
 
   if (request.method === "GET") {
-    // 管理员：列出全部评论（含所属文章）
+    // 管理员：列出全部评论（含待审核、含回复）
     if (url.searchParams.get("admin") === "1") {
-      const token = request.headers.get("x-admin-token");
-      if (!process.env.ADMIN_TOKEN || token !== process.env.ADMIN_TOKEN) {
-        return json({ error: "forbidden" }, 403);
-      }
+      if (!admin) return json({ error: "forbidden" }, 403);
       const { blobs } = await store.list({ prefix: "c/" });
       const all = await Promise.all(
-        blobs.slice(-500).map((blob) => store.get(blob.key, { type: "json" }).catch(() => null))
+        blobs.slice(-600).map((blob) => store.get(blob.key, { type: "json" }).catch(() => null))
       );
-      return json({
-        total: all.filter(Boolean).length,
-        comments: all.filter(Boolean).map(({ ipHash, ...rest }) => rest),
-      });
+      return json({ total: all.filter(Boolean).length, comments: all.filter(Boolean).map(publicView) });
     }
+
     if (!pagePath) return json({ comments: [] });
-    const prefix = `c/${hashPath(pagePath)}/`;
-    const { blobs } = await store.list({ prefix });
+    const { blobs } = await store.list({ prefix: `c/${hashPath(pagePath)}/` });
     const loaded = await Promise.all(
       blobs.slice(-300).map((blob) => store.get(blob.key, { type: "json" }).catch(() => null))
     );
+    // 公开只返回已通过的评论；管理员预览时能看到全部
     const comments = loaded
       .filter((item) => item && !item.hidden)
-      .map(({ ipHash, ...rest }) => rest)
+      .filter((item) => admin || (item.status || "approved") === "approved")
+      .map(publicView)
       .sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
     return json({ comments });
   }
@@ -94,14 +101,36 @@ export default async function handler(request) {
 
   if (payload.website) return json({ ok: true, spam: true });
 
-  // 管理员操作：删除单条（payload.id）或清空（payload.path 可选，省略则清空全部）
-  if (payload.action === "delete" || payload.action === "purge") {
-    const adminToken = process.env.ADMIN_TOKEN;
-    if (!adminToken || request.headers.get("x-admin-token") !== adminToken) {
-      return json({ error: "forbidden" }, 403);
+  /* ---------- 管理员操作 ---------- */
+  const adminActions = ["approve", "reject", "reply", "delete", "purge"];
+  if (adminActions.includes(payload.action)) {
+    if (!admin) return json({ error: "forbidden" }, 403);
+
+    if (payload.action === "reply") {
+      const scope = String(payload.path || "").slice(0, 200);
+      const parentId = String(payload.parentId || "").slice(0, 64);
+      const body = String(payload.body || "").trim().slice(0, MAX_BODY);
+      if (!scope || !parentId || !body) return json({ error: "empty" }, 400);
+      const id = randomUUID();
+      const createdAt = Date.now();
+      const reply = {
+        id,
+        name: "屋主",
+        role: "owner",
+        body,
+        image: null,
+        parent: parentId,
+        status: "approved",
+        createdAt,
+      };
+      await store.setJSON(`c/${hashPath(scope)}/${String(createdAt).padStart(14, "0")}-${id}.json`, {
+        ...reply,
+        page: scope,
+      });
+      return json({ ok: true, comment: reply });
     }
 
-    if (payload.action === "delete") {
+    if (payload.action === "delete" || payload.action === "reject") {
       const id = String(payload.id || "");
       if (!id) return json({ error: "empty" }, 400);
       const { blobs } = await store.list({ prefix: "c/" });
@@ -115,17 +144,32 @@ export default async function handler(request) {
       return json({ ok: true, removed });
     }
 
-    const scope = String(payload.path || "").slice(0, 200);
-    const prefix = scope ? `c/${hashPath(scope)}/` : "c/";
-    const { blobs } = await store.list({ prefix });
-    let removed = 0;
-    for (const blob of blobs) {
-      await store.delete(blob.key);
-      removed += 1;
+    if (payload.action === "purge") {
+      const scope = String(payload.path || "").slice(0, 200);
+      const prefix = scope ? `c/${hashPath(scope)}/` : "c/";
+      const { blobs } = await store.list({ prefix });
+      for (const blob of blobs) await store.delete(blob.key);
+      return json({ ok: true, removed: blobs.length });
     }
-    return json({ ok: true, removed });
+
+    if (payload.action === "approve") {
+      const id = String(payload.id || "");
+      const scope = String(payload.path || "").slice(0, 200);
+      if (!id || !scope) return json({ error: "empty" }, 400);
+      const { blobs } = await store.list({ prefix: `c/${hashPath(scope)}/` });
+      for (const blob of blobs) {
+        if (!blob.key.includes(id)) continue;
+        const item = await store.get(blob.key, { type: "json" }).catch(() => null);
+        if (!item) continue;
+        item.status = "approved";
+        await store.setJSON(blob.key, item);
+        return json({ ok: true, comment: publicView(item) });
+      }
+      return json({ error: "not-found" }, 404);
+    }
   }
 
+  /* ---------- 访客发布 ---------- */
   const name = String(payload.name || "").trim().slice(0, MAX_NAME);
   const body = String(payload.body || "").trim().slice(0, MAX_BODY);
   const target = String(payload.path || "").slice(0, 200);
@@ -155,14 +199,21 @@ export default async function handler(request) {
 
   const id = randomUUID();
   const createdAt = Date.now();
-  const comment = { id, name, body, image: imageUrl, createdAt };
+  const comment = {
+    id,
+    name,
+    body,
+    image: imageUrl,
+    status: "pending",
+    createdAt,
+  };
   await store.setJSON(`c/${hashPath(target)}/${String(createdAt).padStart(14, "0")}-${id}.json`, {
     ...comment,
     page: target,
     ipHash,
   });
   await store.set(rateKey, String(count + 1));
-  return json({ ok: true, comment });
+  return json({ ok: true, pending: true, comment });
 }
 
 export const config = { path: "/api/comments" };

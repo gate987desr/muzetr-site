@@ -1,6 +1,6 @@
 /* ==========================================================================
    饮冰室 · admin-comments.js
-   评论管理页：列出全部评论，支持逐条删除与整篇清空。
+   评论管理：列出全部评论（含待审核），支持通过 / 回复 / 删除 / 清空。
    令牌只存在 localStorage，通过 x-admin-token 请求头发给接口。
    ========================================================================== */
 
@@ -23,7 +23,7 @@
     statusEl.className = "admin-status" + (kind ? " is-" + kind : "");
   }
 
-  function token() {
+  function getToken() {
     return (tokenInput && tokenInput.value.trim()) || localStorage.getItem(STORAGE_KEY) || "";
   }
 
@@ -44,7 +44,7 @@
 
   function request(method, body) {
     var url = method === "GET" ? API + "?admin=1" : API;
-    var headers = { "x-admin-token": token() };
+    var headers = { "x-admin-token": getToken() };
     if (body) headers["content-type"] = "application/json";
     return fetch(url, { method: method, headers: headers, body: body ? JSON.stringify(body) : undefined })
       .then(function (response) {
@@ -52,6 +52,39 @@
           return { ok: response.ok, status: response.status, data: data };
         });
       });
+  }
+
+  function act(payload, successText) {
+    return request("POST", payload).then(function (res) {
+      status(res.ok ? successText : "操作失败", res.ok ? "ok" : "error");
+      load();
+    });
+  }
+
+  function button(label, className, onClick) {
+    var node = el("button", "admin-btn" + (className ? " " + className : ""), label);
+    node.type = "button";
+    node.addEventListener("click", onClick);
+    return node;
+  }
+
+  function replyForm(page, item, container) {
+    var wrap = el("div", "admin-reply-form");
+    var area = document.createElement("textarea");
+    area.rows = 3;
+    area.placeholder = "以「屋主」身份回复…";
+    wrap.appendChild(area);
+
+    var bar = el("div", "admin-reply-bar");
+    bar.appendChild(button("发送", "", function () {
+      var text = (area.value || "").trim();
+      if (!text) return;
+      act({ action: "reply", path: page, parentId: item.id, body: text }, "已回复");
+    }));
+    bar.appendChild(button("取消", "admin-btn-ghost", function () { wrap.remove(); }));
+    wrap.appendChild(bar);
+    container.appendChild(wrap);
+    area.focus();
   }
 
   function render(comments) {
@@ -67,6 +100,9 @@
       (groups[page] = groups[page] || []).push(item);
     });
 
+    var pendingTotal = comments.filter(function (item) { return (item.status || "approved") !== "approved"; }).length;
+    status("共 " + comments.length + " 条" + (pendingTotal ? "，其中 " + pendingTotal + " 条待审核" : ""), "ok");
+
     Object.keys(groups).sort().forEach(function (page) {
       var items = groups[page].sort(function (a, b) { return (a.createdAt || 0) - (b.createdAt || 0); });
       var section = el("section", "admin-group");
@@ -79,37 +115,36 @@
       link.target = "_blank";
       link.rel = "noopener";
       head.appendChild(link);
-      var purge = el("button", "admin-btn admin-btn-danger", "清空这篇");
-      purge.type = "button";
-      purge.addEventListener("click", function () {
-        if (!window.confirm("确定清空「" + page + "」的 " + items.length + " 条评论？这个操作不能撤销。")) return;
-        request("POST", { action: "purge", path: page }).then(function (res) {
-          status(res.ok ? "已清空 " + (res.data.removed || 0) + " 条" : "清空失败", res.ok ? "ok" : "error");
-          load();
-        });
-      });
-      head.appendChild(purge);
+      head.appendChild(button("清空这篇", "admin-btn-danger", function () {
+        if (!window.confirm("确定清空「" + page + "」的 " + items.length + " 条评论？不能撤销。")) return;
+        act({ action: "purge", path: page }, "已清空");
+      }));
       section.appendChild(head);
 
       items.forEach(function (item) {
-        var row = el("article", "admin-comment");
+        var approved = (item.status || "approved") === "approved";
+        var row = el("article", "admin-comment" + (approved ? "" : " is-pending"));
+
         var meta = el("div", "admin-comment-head");
         meta.appendChild(el("strong", "admin-comment-name", item.name || "无名"));
+        if (item.role === "owner") meta.appendChild(el("span", "admin-comment-owner", "屋主"));
         meta.appendChild(el("time", "admin-comment-time", when(item.createdAt)));
-        if (item.image) {
-          var tag = el("span", "admin-comment-tag", "带图");
-          meta.appendChild(tag);
+        meta.appendChild(el("span", "admin-badge" + (approved ? " is-live" : " is-pending"), approved ? "已发布" : "待审核"));
+        if (item.parent) meta.appendChild(el("span", "admin-badge", "回复"));
+        if (item.image) meta.appendChild(el("span", "admin-badge", "带图"));
+
+        if (!approved) {
+          meta.appendChild(button("通过", "admin-btn-primary", function () {
+            act({ action: "approve", path: page, id: item.id }, "已通过");
+          }));
         }
-        var del = el("button", "admin-btn admin-btn-danger", "删除");
-        del.type = "button";
-        del.addEventListener("click", function () {
+        meta.appendChild(button("回复", "admin-btn-ghost", function () {
+          if (!row.querySelector(".admin-reply-form")) replyForm(page, item, row);
+        }));
+        meta.appendChild(button("删除", "admin-btn-danger", function () {
           if (!window.confirm("删除这条评论？")) return;
-          request("POST", { action: "delete", path: page, id: item.id }).then(function (res) {
-            status(res.ok ? "已删除" : "删除失败", res.ok ? "ok" : "error");
-            load();
-          });
-        });
-        meta.appendChild(del);
+          act({ action: "delete", id: item.id }, "已删除");
+        }));
         row.appendChild(meta);
 
         if (item.body) row.appendChild(el("p", "admin-comment-body", item.body));
@@ -129,7 +164,7 @@
   }
 
   function load() {
-    if (!token()) {
+    if (!getToken()) {
       status("还没有令牌", "error");
       return;
     }
@@ -143,7 +178,6 @@
         status("读取失败", "error");
         return;
       }
-      status("共 " + (res.data.total || 0) + " 条", "ok");
       render(res.data.comments || []);
     }).catch(function () {
       status("网络错误", "error");
@@ -158,7 +192,6 @@
         return;
       }
       localStorage.setItem(STORAGE_KEY, value);
-      status("已保存", "ok");
       load();
     });
   }

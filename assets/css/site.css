@@ -1105,6 +1105,20 @@ a.tag:hover { color: var(--accent); border-color: var(--accent); background: var
 .comment-item:last-child { border-bottom: 1px solid var(--rule); }
 .comment-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
 .comment-name { font-size: 0.95rem; font-weight: 500; letter-spacing: 0.06em; }
+.comment-name-wrap { display: flex; align-items: center; gap: 8px; }
+.comment-owner {
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 1px 6px;
+  border-radius: var(--radius);
+}
+.comment-children { list-style: none; margin: 10px 0 0; padding: 0 0 0 18px; border-left: 1px solid var(--rule); }
+.comment-item.is-reply { border-top: 1px dashed var(--rule); }
+.comment-item.is-reply:last-child { border-bottom: 0; }
 .comment-time { font-size: 0.68rem; letter-spacing: 0.1em; color: var(--ink-3); }
 .comment-text { margin-top: 8px; font-size: 0.94rem; line-height: 1.85; color: var(--ink-2); white-space: pre-wrap; }
 .comment-image { margin: 12px 0 0; padding: 6px; border: 1px solid var(--rule); background: var(--paper-2); max-width: 420px; }
@@ -1225,6 +1239,35 @@ a.tag:hover { color: var(--accent); border-color: var(--accent); background: var
 }
 .admin-comment-body { margin-top: 8px; font-size: 0.9rem; line-height: 1.8; color: var(--ink-2); white-space: pre-wrap; }
 .admin-comment-image { margin-top: 10px; max-width: 280px; border: 1px solid var(--rule); padding: 4px; background: var(--paper-2); }
+.admin-comment.is-pending { background: rgba(201, 162, 91, 0.08); }
+.admin-badge {
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+  border: 1px solid var(--rule);
+  padding: 1px 6px;
+  border-radius: var(--radius);
+}
+.admin-badge.is-pending { color: var(--accent); border-color: var(--accent); }
+.admin-badge.is-live { color: #4f7a45; border-color: #4f7a45; }
+.admin-comment-owner { font-size: 0.6rem; letter-spacing: 0.14em; color: var(--accent-2); }
+.admin-btn-primary { border-color: var(--accent); color: var(--accent); }
+.admin-btn-ghost { border-color: var(--rule); }
+.admin-reply-form { margin-top: 12px; }
+.admin-reply-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  resize: vertical;
+}
+.admin-reply-form textarea:focus { border-color: var(--accent); outline: none; }
+.admin-reply-bar { display: flex; gap: 8px; margin-top: 8px; }
 
 /* ---------- 8. prose ----------------------------------------------------- */
 

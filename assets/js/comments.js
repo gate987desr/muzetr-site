@@ -64,17 +64,25 @@
         return;
       }
 
-      var list = el("ul", "comment-list");
+      var byParent = {};
       comments.forEach(function (item) {
-        var li = el("li", "comment-item");
+        var key = item.parent || "";
+        (byParent[key] = byParent[key] || []).push(item);
+      });
+
+      function itemNode(item, depth) {
+        var li = el("li", "comment-item" + (depth ? " is-reply" : ""));
+
         var head = el("div", "comment-head");
-        head.appendChild(el("strong", "comment-name", item.name || "无名"));
+        var nameWrap = el("div", "comment-name-wrap");
+        nameWrap.appendChild(el("strong", "comment-name", item.name || "无名"));
+        if (item.role === "owner") nameWrap.appendChild(el("span", "comment-owner", "屋主"));
+        head.appendChild(nameWrap);
         head.appendChild(el("time", "comment-time", formatTime(item.createdAt)));
         li.appendChild(head);
-        if (item.body) {
-          var text = el("p", "comment-text", item.body);
-          li.appendChild(text);
-        }
+
+        if (item.body) li.appendChild(el("p", "comment-text", item.body));
+
         if (item.image) {
           var figure = el("figure", "comment-image");
           var img = document.createElement("img");
@@ -84,8 +92,18 @@
           figure.appendChild(img);
           li.appendChild(figure);
         }
-        list.appendChild(li);
-      });
+
+        var children = byParent[item.id] || [];
+        if (children.length) {
+          var list = el("ul", "comment-children");
+          children.forEach(function (child) { list.appendChild(itemNode(child, depth + 1)); });
+          li.appendChild(list);
+        }
+        return li;
+      }
+
+      var list = el("ul", "comment-list");
+      (byParent[""] || []).forEach(function (item) { list.appendChild(itemNode(item, 0)); });
       body.appendChild(list);
     }
 
@@ -135,7 +153,7 @@
           .then(function (response) { return response.json().catch(function () { return {}; }); })
           .then(function (result) {
             if (result && result.ok) {
-              say("发布成功。", "ok");
+              say(result.pending ? "已提交，等屋主看过就会显示。" : "发布成功。", "ok");
               form.reset();
               load();
             } else {
