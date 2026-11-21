@@ -11,6 +11,11 @@
   node_bundler = "esbuild"
 
 [[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=600, must-revalidate"

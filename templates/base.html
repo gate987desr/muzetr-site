@@ -22,6 +22,7 @@
 </script>
 <title>{{page.title}}</title>
 <meta name="description" content="{{page.description}}">
+{{#page.noindex}}<meta name="robots" content="noindex, nofollow">{{/page.noindex}}
 <link rel="canonical" href="{{page.canonical}}">
 <meta name="theme-color" content="#f2e8d5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#14100c" media="(prefers-color-scheme: dark)">
@@ -145,6 +146,7 @@
 <script src="/assets/js/site.js" defer></script>
 <script src="/assets/js/unlock.js" defer></script>
 <script src="/assets/js/comments.js" defer></script>
+{{#page.adminScript}}<script src="/assets/js/admin-comments.js" defer></script>{{/page.adminScript}}
 {{#features.pwa}}<script>if ('serviceWorker' in navigator && !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)) { window.addEventListener('load', function () { navigator.serviceWorker.register('/sw.js').catch(function () {}); }); }</script>{{/features.pwa}}
 </body>
 </html>

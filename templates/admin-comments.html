@@ -1,0 +1,24 @@
+<header class="page-head page-head-compact">
+  <p class="page-kicker">Admin · 评论管理</p>
+  <h1 class="page-title">评论</h1>
+  <p class="page-count">这一页只给屋主用。令牌保存在你这台浏览器里，不进页面、不进仓库。</p>
+</header>
+
+<div class="admin">
+  <div class="admin-bar">
+    <label class="sr-only" for="admin-token">管理员令牌</label>
+    <input id="admin-token" type="password" placeholder="粘贴 ADMIN_TOKEN" autocomplete="off" spellcheck="false">
+    <button id="admin-save" class="btn" type="button">保存令牌</button>
+    <button id="admin-refresh" class="btn btn-ghost" type="button">刷新列表</button>
+    <span id="admin-status" class="admin-status" role="status"></span>
+  </div>
+
+  <p class="admin-hint">
+    令牌在 Netlify → <b>Site configuration → Environment variables → ADMIN_TOKEN</b>。
+    保存一次就够了，以后打开这页会自动读出来。
+  </p>
+
+  <div id="admin-list" class="admin-list">
+    <p class="admin-empty">输入令牌后点「刷新列表」。</p>
+  </div>
+</div>

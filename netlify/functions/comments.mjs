@@ -55,6 +55,21 @@ export default async function handler(request) {
   const pagePath = (url.searchParams.get("path") || "").slice(0, 200);
 
   if (request.method === "GET") {
+    // 管理员：列出全部评论（含所属文章）
+    if (url.searchParams.get("admin") === "1") {
+      const token = request.headers.get("x-admin-token");
+      if (!process.env.ADMIN_TOKEN || token !== process.env.ADMIN_TOKEN) {
+        return json({ error: "forbidden" }, 403);
+      }
+      const { blobs } = await store.list({ prefix: "c/" });
+      const all = await Promise.all(
+        blobs.slice(-500).map((blob) => store.get(blob.key, { type: "json" }).catch(() => null))
+      );
+      return json({
+        total: all.filter(Boolean).length,
+        comments: all.filter(Boolean).map(({ ipHash, ...rest }) => rest),
+      });
+    }
     if (!pagePath) return json({ comments: [] });
     const prefix = `c/${hashPath(pagePath)}/`;
     const { blobs } = await store.list({ prefix });

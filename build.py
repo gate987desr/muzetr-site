@@ -406,6 +406,7 @@ class Site:
         self._build_about()
         self._build_locked()
         self._build_guestbook()
+        self._build_admin()
         self._build_search_page()
         self._build_404()
         self._build_feeds()
@@ -755,6 +756,20 @@ class Site:
             total=len(self.posts) + len(self.notes) + len(self.collection) + len(self.projects),
         )
 
+    def _build_admin(self):
+        context = self.base_context(
+            "评论管理",
+            "屋主专用：管理文章评论。",
+            "/admin/comments/",
+            section="admin",
+            body_class="page-admin",
+        )
+        context["page"]["noindex"] = True
+        context["page"]["adminScript"] = True
+        view = self.engine.render("admin-comments.html", context)
+        document = self.engine.render("base.html", dict(context, view=view))
+        write_text(os.path.join(self.out_dir, "admin", "comments", "index.html"), document)
+
     def _build_404(self):
         context = self.base_context("未找到", "这一页不在屋子里。", "/404.html", section="404", body_class="page-404")
         view = self.engine.render("404.html", context)
@@ -910,7 +925,7 @@ class Site:
     def _write_robots(self):
         write_text(
             os.path.join(self.out_dir, "robots.txt"),
-            "User-agent: *\nAllow: /\nSitemap: %s/sitemap.xml\n" % self.base_url,
+            "User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: %s/sitemap.xml\n" % self.base_url,
         )
         # CNAME 只对 GitHub Pages 有意义；用 netlify.app 之类的默认域名时不写
         if not self.config["domain"].endswith(".netlify.app"):
