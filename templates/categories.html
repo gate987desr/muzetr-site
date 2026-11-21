@@ -1,0 +1,22 @@
+<header class="page-head">
+  <p class="page-kicker">栏目 · Categories</p>
+  <h1 class="page-title">分类</h1>
+  <p class="page-count">{{stats.posts}} 篇文章分在几个抽屉里。</p>
+</header>
+
+<ul class="category-list">
+  {{#category_list}}
+  <li class="category-item">
+    <a href="/categories/{{slug}}/">
+      <span class="category-name">{{label}}</span>
+      <span class="category-count">{{count}} 篇</span>
+      <span class="category-titles">{{#posts}}{{title}} · {{/posts}}</span>
+    </a>
+  </li>
+  {{/category_list}}
+</ul>
+
+<nav class="page-foot-nav" aria-label="更多">
+  <a href="/tags/">按标签浏览<i aria-hidden="true">→</i></a>
+  <a href="/archive/">按年归档<i aria-hidden="true">→</i></a>
+</nav>

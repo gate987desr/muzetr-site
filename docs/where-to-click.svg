@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 570" role="img" aria-label="项目文件夹示意图：该双击哪些文件">
+  <rect width="940" height="570" fill="#f3ead8"/>
+  <text x="24" y="24" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12" fill="#7d6a54">示意图 · 你的 muzetr 文件夹（资源管理器里大致长这样）</text>
+
+  <rect x="24" y="40" width="548" height="472" rx="3" fill="#fdf8ec" stroke="#241c15" stroke-width="1.2"/>
+  <rect x="24" y="40" width="548" height="34" rx="3" fill="#e6d8bc" stroke="#241c15" stroke-width="1.2"/>
+  <rect x="24" y="67" width="548" height="7" fill="#e6d8bc"/>
+  <text x="42" y="62" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="13" fill="#241c15">muzetr</text>
+  <text x="552" y="62" text-anchor="end" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="10" fill="#7d6a54">文件 · 查看 · 排序</text>
+
+  <g font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="12.5" fill="#4c3d2f">
+  <path d="M44 70h7l2 3h9v10H44z" fill="#a3813c" opacity="0.55" stroke="#8a6a2e" stroke-width="0.8"/>
+  <text x="72" y="84">assets/</text>
+  <path d="M44 96h7l2 3h9v10H44z" fill="#a3813c" opacity="0.55" stroke="#8a6a2e" stroke-width="0.8"/>
+  <text x="72" y="110">content/</text>
+  <path d="M44 122h7l2 3h9v10H44z" fill="#a3813c" opacity="0.55" stroke="#8a6a2e" stroke-width="0.8"/>
+  <text x="72" y="136">docs/</text>
+  <path d="M44 148h7l2 3h9v10H44z" fill="#a3813c" opacity="0.55" stroke="#8a6a2e" stroke-width="0.8"/>
+  <text x="72" y="162">lib/</text>
+  <path d="M44 174h7l2 3h9v10H44z" fill="#a3813c" opacity="0.55" stroke="#8a6a2e" stroke-width="0.8"/>
+  <text x="72" y="188">templates/</text>
+  <rect x="30" y="196" width="536" height="24" fill="#8c2f20" opacity="0.09"/>
+  <rect x="30" y="196" width="3" height="24" fill="#8c2f20"/>
+  <path d="M45 200h11l4 4v13H45z" fill="#fdf8ec" stroke="#7d6a54" stroke-width="0.9"/>
+  <text x="72" y="214" font-weight="bold">0-开始.cmd</text>
+  <rect x="30" y="222" width="536" height="24" fill="#8c2f20" opacity="0.09"/>
+  <rect x="30" y="222" width="3" height="24" fill="#8c2f20"/>
+  <path d="M45 226h11l4 4v13H45z" fill="#fdf8ec" stroke="#7d6a54" stroke-width="0.9"/>
+  <text x="72" y="240" font-weight="bold">build.cmd</text>
+  <path d="M45 252h11l4 4v13H45z" fill="#fdf8ec" stroke="#7d6a54" stroke-width="0.9"/>
+  <text x="72" y="266">build.py</text>
+  <path d="M45 278h11l4 4v13H45z" fill="#fdf8ec" stroke="#7d6a54" stroke-width="0.9"/>
+  <text x="72" y="292">check.py</text>
+  <path d="M45 304h11l4 4v13H45z" fill="#fdf8ec" stroke="#7d6a54" stroke-width="0.9"/>
+  <text x="72" y="318">CONTENT.md</text>
+  <path d="M45 330h11l4 4v13H45z" fill="#fdf8ec" stroke="#7d6a54" stroke-width="0.9"/>
+  <text x="72" y="344">menu.py</text>
+  <rect x="30" y="352" width="536" height="24" fill="#8c2f20" opacity="0.09"/>
+  <rect x="30" y="352" width="3" height="24" fill="#8c2f20"/>
+  <path d="M45 356h11l4 4v13H45z" fill="#fdf8ec" stroke="#7d6a54" stroke-width="0.9"/>
+  <text x="72" y="370" font-weight="bold">new-post.cmd</text>
+  <path d="M45 382h11l4 4v13H45z" fill="#fdf8ec" stroke="#7d6a54" stroke-width="0.9"/>
+  <text x="72" y="396">new_post.py</text>
+  <rect x="30" y="404" width="536" height="24" fill="#8c2f20" opacity="0.09"/>
+  <rect x="30" y="404" width="3" height="24" fill="#8c2f20"/>
+  <path d="M45 408h11l4 4v13H45z" fill="#fdf8ec" stroke="#7d6a54" stroke-width="0.9"/>
+  <text x="72" y="422" font-weight="bold">preview.cmd</text>
+  <rect x="30" y="430" width="536" height="24" fill="#8c2f20" opacity="0.09"/>
+  <rect x="30" y="430" width="3" height="24" fill="#8c2f20"/>
+  <path d="M45 434h11l4 4v13H45z" fill="#fdf8ec" stroke="#7d6a54" stroke-width="0.9"/>
+  <text x="72" y="448" font-weight="bold">site.config.json</text>
+  <path d="M45 460h11l4 4v13H45z" fill="#fdf8ec" stroke="#7d6a54" stroke-width="0.9"/>
+  <text x="72" y="474">START-HERE.md</text>
+  </g>
+
+  <g font-family="Microsoft YaHei, PingFang SC, sans-serif">
+  <circle cx="530" cy="210" r="9" fill="#8c2f20"/>
+  <text x="530" y="214" fill="#f3ead8" font-size="11" text-anchor="middle">1</text>
+  <circle cx="530" cy="236" r="9" fill="#8c2f20"/>
+  <text x="530" y="240" fill="#f3ead8" font-size="11" text-anchor="middle">2</text>
+  <circle cx="530" cy="366" r="9" fill="#8c2f20"/>
+  <text x="530" y="370" fill="#f3ead8" font-size="11" text-anchor="middle">3</text>
+  <circle cx="530" cy="418" r="9" fill="#8c2f20"/>
+  <text x="530" y="422" fill="#f3ead8" font-size="11" text-anchor="middle">4</text>
+  <circle cx="530" cy="444" r="9" fill="#8c2f20"/>
+  <text x="530" y="448" fill="#f3ead8" font-size="11" text-anchor="middle">5</text>
+  </g>
+
+  <g font-family="Microsoft YaHei, PingFang SC, sans-serif">
+  <circle cx="612" cy="96" r="11" fill="#8c2f20"/>
+  <text x="612" y="100" fill="#f3ead8" font-size="12" text-anchor="middle">1</text>
+  <text x="634" y="101" font-size="13.5" font-weight="bold" fill="#241c15">先双击这个</text>
+  <text x="634" y="120" font-size="11.5" fill="#4c3d2f">一个菜单，什么都能干</text>
+  <circle cx="612" cy="170" r="11" fill="#8c2f20"/>
+  <text x="612" y="174" fill="#f3ead8" font-size="12" text-anchor="middle">2</text>
+  <text x="634" y="175" font-size="13.5" font-weight="bold" fill="#241c15">只生成网站</text>
+  <text x="634" y="194" font-size="11.5" fill="#4c3d2f">改完内容后点一下</text>
+  <circle cx="612" cy="244" r="11" fill="#8c2f20"/>
+  <text x="612" y="248" fill="#f3ead8" font-size="12" text-anchor="middle">3</text>
+  <text x="634" y="249" font-size="13.5" font-weight="bold" fill="#241c15">写新文章</text>
+  <text x="634" y="268" font-size="11.5" fill="#4c3d2f">向导会问标题、栏目</text>
+  <circle cx="612" cy="318" r="11" fill="#8c2f20"/>
+  <text x="612" y="322" fill="#f3ead8" font-size="12" text-anchor="middle">4</text>
+  <text x="634" y="323" font-size="13.5" font-weight="bold" fill="#241c15">生成并打开预览</text>
+  <text x="634" y="342" font-size="11.5" fill="#4c3d2f">浏览器自动弹出来</text>
+  <circle cx="612" cy="392" r="11" fill="#8c2f20"/>
+  <text x="612" y="396" fill="#f3ead8" font-size="12" text-anchor="middle">5</text>
+  <text x="634" y="397" font-size="13.5" font-weight="bold" fill="#241c15">用 VS Code 改这里</text>
+  <text x="634" y="416" font-size="11.5" fill="#4c3d2f">站名、作者、邮箱</text>
+  </g>
+
+  <g font-family="Microsoft YaHei, PingFang SC, sans-serif">
+    <text x="24" y="540" font-size="11.5" fill="#4c3d2f">提示：在文件夹空白处点右键 →「通过 Code 打开」，就能用 VS Code 改第 5 项。</text>
+    <text x="24" y="559" font-size="10.5" fill="#7d6a54">路径：C:\Users\29545\Documents\deepseek-harness\default-workspace\muzetr</text>
+  </g>
+</svg>

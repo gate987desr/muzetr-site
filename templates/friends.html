@@ -1,0 +1,30 @@
+<header class="page-head">
+  <p class="page-kicker">{{sections.friends.en}} · {{sections.friends.kicker}}</p>
+  <h1 class="page-title">{{sections.friends.title}}</h1>
+  <figure class="epigraph">
+    <blockquote>{{epigraph.text}}</blockquote>
+    <figcaption>{{epigraph.note}}</figcaption>
+  </figure>
+  <p class="page-count">{{total}} 个地方，常去坐坐。</p>
+</header>
+
+<ul class="friend-grid">
+  {{#items}}
+  <li class="friend-card">
+    <a href="{{url}}" target="_blank" rel="noopener noreferrer">
+      <span class="friend-corner" aria-hidden="true">❧</span>
+      <p class="friend-name">{{name}}</p>
+      <p class="friend-url">{{url}}</p>
+      <p class="friend-desc">{{desc}}</p>
+      <p class="friend-since">自 {{since}}</p>
+    </a>
+  </li>
+  {{/items}}
+</ul>
+
+<section class="exchange">
+  <p class="exchange-kicker">Exchange</p>
+  <h2 class="exchange-title">交换友链</h2>
+  <p class="exchange-text">如果你也有一间自己的屋子，写信告诉我地址，我把门牌挂上来。<br>名字、一句介绍、一个链接就够了。</p>
+  <p class="mail-actions"><a class="btn" href="mailto:{{site.author.email}}?subject=交换友链">{{site.author.email}}</a></p>
+</section>

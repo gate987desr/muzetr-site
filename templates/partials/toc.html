@@ -1,0 +1,7 @@
+<nav class="toc" aria-label="目录">
+  <p class="toc-label">目录<span>Contents</span></p>
+  <ol class="toc-list">
+    {{#post.toc}}<li class="toc-item toc-l{{level}}"><a href="#{{id}}">{{text}}</a></li>{{/post.toc}}
+  </ol>
+  <p class="toc-progress"><span id="toc-progress-value">0</span>% 已读</p>
+</nav>

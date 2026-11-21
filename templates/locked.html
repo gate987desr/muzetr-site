@@ -1,0 +1,21 @@
+<header class="page-head">
+  <p class="page-kicker">{{sections.locked.en}} · {{sections.locked.kicker}}</p>
+  <h1 class="page-title">{{sections.locked.title}}</h1>
+  <figure class="epigraph">
+    <blockquote>{{epigraph.text}}</blockquote>
+    <figcaption>{{epigraph.note}}</figcaption>
+  </figure>
+  <p class="page-count">{{total}} 篇上了锁。</p>
+</header>
+
+<div class="locked-note">
+  <p class="locked-note-mark" aria-hidden="true">※</p>
+  <p>这些文章的正文在构建时就被加密了，静态页面里只有密文。输入口令，浏览器本地解密，不会经过任何服务器 —— 所以也意味着：口令忘了就真读不到了。</p>
+</div>
+
+{{#total}}
+<div class="rows">{{{html}}}</div>
+{{/total}}
+{{^total}}
+<p class="empty">还没有上锁的文章。想加的话，在文章 frontmatter 里写 <code>locked: true</code> 和 <code>password: 口令</code>。</p>
+{{/total}}

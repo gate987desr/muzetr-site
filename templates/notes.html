@@ -1,0 +1,21 @@
+<header class="page-head">
+  <p class="page-kicker">{{sections.notes.en}} · {{sections.notes.kicker}}</p>
+  <h1 class="page-title">{{sections.notes.title}}</h1>
+  <figure class="epigraph">
+    <blockquote>{{epigraph.text}}</blockquote>
+    <figcaption>{{epigraph.note}}</figcaption>
+  </figure>
+  <p class="page-count">{{total}} 条，按月归拢，每一条都很短。</p>
+</header>
+
+<div class="chips" data-note-filters>
+  <button type="button" class="chip is-active" data-note-filter="*">全部<em>{{total}}</em></button>
+  {{#note_tags}}<button type="button" class="chip" data-note-filter="{{label}}">{{label}}<em>{{count}}</em></button>{{/note_tags}}
+</div>
+
+{{#month_groups}}
+<section class="note-month" aria-label="{{stamp}}">
+  <h2 class="month-label"><span>{{stamp}}</span><em>{{count}} 条</em></h2>
+  <ul class="notes">{{{html}}}</ul>
+</section>
+{{/month_groups}}

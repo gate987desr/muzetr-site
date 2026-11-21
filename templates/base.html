@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper" data-size="m" data-face="serif">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>
+  (function () {
+    try {
+      var root = document.documentElement;
+      root.classList.add('js');
+      var theme = localStorage.getItem('icing.theme');
+      if (!theme) theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'paper';
+      var requested = new URLSearchParams(location.search).get('theme');
+      if (requested === 'night' || requested === 'paper') theme = requested;
+      root.setAttribute('data-theme', theme);
+      var size = localStorage.getItem('icing.size');
+      if (size) root.setAttribute('data-size', size);
+      var face = localStorage.getItem('icing.face');
+      if (face) root.setAttribute('data-face', face);
+    } catch (error) {}
+  })();
+</script>
+<title>{{page.title}}</title>
+<meta name="description" content="{{page.description}}">
+<link rel="canonical" href="{{page.canonical}}">
+<meta name="theme-color" content="#f2e8d5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14100c" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<meta name="author" content="{{site.author.name}}">
+<meta property="og:site_name" content="{{site.title}}">
+<meta property="og:title" content="{{page.heading}}{{^page.heading}}{{site.title}}{{/page.heading}}">
+<meta property="og:description" content="{{page.description}}">
+<meta property="og:type" content="{{page.type}}">
+<meta property="og:url" content="{{page.canonical}}">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="{{page.ogImage}}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{page.heading}}{{^page.heading}}{{site.title}}{{/page.heading}}">
+<meta name="twitter:description" content="{{page.description}}">
+<meta name="twitter:image" content="{{page.ogImage}}">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="alternate" type="application/rss+xml" title="{{site.title}} RSS" href="/feed.xml">
+<link rel="preload" href="/assets/fonts/ebgaramond-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/cormorant-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/fonts.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body class="{{page.bodyClass}}" data-section="{{page.section}}">
+<a class="skip-link" href="#main">跳到正文</a>
+<div class="page-frame" aria-hidden="true"></div>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="brand" href="/" aria-label="{{site.title}} 首页">
+      <span class="brand-seal">{{> seal.html }}</span>
+      <span class="brand-words">
+        <span class="brand-cn">{{site.title}}</span>
+        <span class="brand-en">{{site.titleEn}}</span>
+      </span>
+    </a>
+    <p class="brand-motto">{{site.motto}}<span class="motto-source">{{site.mottoSource}}</span></p>
+    <div class="masthead-tools">
+      <details class="settings">
+        <summary class="icon-btn" title="显示设置" aria-label="显示设置"><span>Aa</span></summary>
+        <div class="settings-panel">
+          <p class="settings-label">纸色</p>
+          <div class="settings-row">
+            <button type="button" data-set-theme="paper">日光纸</button>
+            <button type="button" data-set-theme="night">烛夜</button>
+          </div>
+          <p class="settings-label">字号</p>
+          <div class="settings-row">
+            <button type="button" data-set-size="s">小</button>
+            <button type="button" data-set-size="m">中</button>
+            <button type="button" data-set-size="l">大</button>
+          </div>
+          <p class="settings-label">字体</p>
+          <div class="settings-row">
+            <button type="button" data-set-face="serif">宋体</button>
+            <button type="button" data-set-face="sans">黑体</button>
+          </div>
+        </div>
+      </details>
+      <button type="button" class="icon-btn theme-btn" id="theme-toggle" title="切换昼夜" aria-label="切换昼夜">
+        <span class="theme-glyph theme-glyph-sun">☀</span><span class="theme-glyph theme-glyph-moon">☾</span>
+      </button>
+      {{#features.search}}<button type="button" class="icon-btn search-btn" id="search-open" title="检索 (Ctrl+K)" aria-label="打开检索"><span aria-hidden="true">⌕</span></button>{{/features.search}}
+    </div>
+  </div>
+
+  <nav class="nav" aria-label="主导航">
+    <div class="nav-inner">
+      {{#nav}}<a class="nav-link{{#active}} is-active{{/active}}" href="{{url}}"><span class="nav-cn">{{label}}</span><span class="nav-en">{{en}}</span></a>{{/nav}}
+    </div>
+  </nav>
+  <div class="rule" aria-hidden="true">{{> flourish.html }}</div>
+</header>
+
+<main class="main" id="main">
+{{{view}}}
+</main>
+
+<footer class="colophon">
+  <div class="rule rule-footer" aria-hidden="true">{{> flourish.html }}</div>
+  <div class="colophon-grid">
+    <div class="colophon-block">
+      <p class="colophon-mark">{{site.title}} <span>{{site.titleEn}}</span></p>
+      <p class="colophon-line">建于 {{site.founded}} · 最后一次誊清 <time datetime="{{build.date}}">{{build.date}}</time></p>
+      <p class="colophon-line">手写 HTML，无数据库，无追踪，无广告。</p>
+    </div>
+    <div class="colophon-block">
+      <p class="colophon-label">屋子里的东西</p>
+      <p class="colophon-line">文章 {{stats.posts}} 篇 · 碎碎念 {{stats.notes}} 条 · 收藏 {{stats.collection}} 部</p>
+      <p class="colophon-line">作品 {{stats.projects}} 件 · 标签 {{stats.tags}} 个 · 约 {{stats.words}} 字</p>
+    </div>
+    <div class="colophon-block">
+      <p class="colophon-label">别处</p>
+      <p class="colophon-line">
+        <a href="/archive/">归档</a> · <a href="/tags/">标签</a> · <a href="/locked/">私密</a><br>
+        <a href="/guestbook/">留言</a> · <a href="/search/">检索</a> · <a href="/feed.xml">RSS</a>
+      </p>
+    </div>
+  </div>
+  <p class="colophon-copy">© {{year}} {{site.author.name}} · {{site.domain}}{{#site.author.email}} · <a href="mailto:{{site.author.email}}">{{site.author.email}}</a>{{/site.author.email}}</p>
+</footer>
+
+{{#features.search}}
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="检索" hidden>
+  <div class="palette-panel">
+    <div class="palette-field">
+      <span class="palette-mark" aria-hidden="true">⌕</span>
+      <input id="palette-input" type="search" placeholder="检索文章、碎碎念、收藏、页面" autocomplete="off" spellcheck="false" aria-label="检索关键词">
+      <kbd>esc</kbd>
+    </div>
+    <ul class="palette-results" id="palette-results"></ul>
+    <p class="palette-hint"><span>↑↓ 选择</span><span>↵ 打开</span><span>esc 关闭</span></p>
+  </div>
+</div>
+{{/features.search}}
+
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/unlock.js" defer></script>
+<script src="/assets/js/comments.js" defer></script>
+{{#features.pwa}}<script>if ('serviceWorker' in navigator && !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)) { window.addEventListener('load', function () { navigator.serviceWorker.register('/sw.js').catch(function () {}); }); }</script>{{/features.pwa}}
+</body>
+</html>

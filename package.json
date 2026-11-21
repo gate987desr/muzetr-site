@@ -1,0 +1,13 @@
+{
+  "name": "muzetr-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "饮冰室 · 个人网站（静态生成 + Netlify Functions 评论）",
+  "scripts": {
+    "build": "python3 build.py"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^11.1.9"
+  }
+}

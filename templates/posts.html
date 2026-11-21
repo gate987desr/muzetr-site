@@ -1,0 +1,25 @@
+<header class="page-head">
+  <p class="page-kicker">{{sections.posts.en}} · {{sections.posts.kicker}}</p>
+  <h1 class="page-title">{{sections.posts.title}}</h1>
+  <figure class="epigraph">
+    <blockquote>{{epigraph.text}}</blockquote>
+    <figcaption>{{epigraph.note}}</figcaption>
+  </figure>
+  <p class="page-count">共 {{stats.posts}} 篇 · 约 {{stats.words}} 字</p>
+</header>
+
+<div class="timeline">
+  {{#groups}}
+  <section class="year-group" aria-label="{{year}} 年">
+    <h2 class="year-label"><span>{{year}}</span><em>{{count}} 篇</em></h2>
+    <div class="rows">{{{html}}}</div>
+  </section>
+  {{/groups}}
+</div>
+
+<nav class="page-foot-nav" aria-label="更多">
+  <a href="/archive/">按年归档<i aria-hidden="true">→</i></a>
+  <a href="/categories/">按栏目<i aria-hidden="true">→</i></a>
+  <a href="/tags/">按标签<i aria-hidden="true">→</i></a>
+  <a href="/feed.xml">RSS 订阅<i aria-hidden="true">→</i></a>
+</nav>

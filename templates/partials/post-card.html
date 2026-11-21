@@ -1,0 +1,19 @@
+<article class="card card-{{variant}}" data-tags="{{#post.tags}}{{.}} {{/post.tags}}">
+  <a class="card-link" href="{{post.url}}">
+    <span class="card-numeral" aria-hidden="true">{{numeral}}</span>
+    <div class="card-body">
+      <p class="card-meta">
+        <span class="card-cat">{{post.category}}</span>
+        <span class="card-dot" aria-hidden="true">·</span>
+        <time datetime="{{post.date}}">{{post.date_cn}}</time>
+        {{#post.locked}}<span class="card-lock" title="需要口令">※ 私密</span>{{/post.locked}}
+      </p>
+      <h3 class="card-title">{{post.title}}</h3>
+      <p class="card-summary">{{post.summary}}</p>
+      <p class="card-foot">
+        <span class="card-min">{{post.minutes}} 分钟</span>
+        {{#post.tag_links}}<span class="card-dot" aria-hidden="true">·</span><span class="card-tag">{{label}}</span>{{/post.tag_links}}
+      </p>
+    </div>
+  </a>
+</article>

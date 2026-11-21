@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-label="版画：拱窗与光">
+  <g fill="none" stroke="#a3813c" stroke-width="1.4" stroke-linecap="round">
+    <path d="M70 470V250a330 330 0 0 1 660 0v220"></path>
+    <path d="M88 470V250a312 312 0 0 1 624 0v220"></path>
+    <path d="M104 470V252a296 296 0 0 1 592 0v218" stroke-width="0.7" opacity="0.7"></path>
+    <path d="M70 470h660"></path>
+    <path d="M70 480h660" stroke-width="0.7" opacity="0.55"></path>
+    <path d="M400 470V96" stroke-width="0.8" opacity="0.8"></path>
+    <path d="M232 470V190M568 470V190" stroke-width="0.8" opacity="0.7"></path>
+    <path d="M160 470V262M640 470V262" stroke-width="0.6" opacity="0.45"></path>
+  </g>
+  <g fill="none" stroke="#a3813c">
+    <circle cx="400" cy="238" r="62" stroke-width="1.6"></circle>
+    <circle cx="400" cy="238" r="52" stroke-width="0.7" opacity="0.65"></circle>
+    <circle cx="400" cy="238" r="70" stroke-width="0.5" stroke-dasharray="2 7" opacity="0.55"></circle>
+  </g>
+  <g stroke="#a3813c" stroke-width="0.7" opacity="0.5">
+    <path d="M400 108v34M400 334v34M270 238h34M496 238h34"></path>
+    <path d="M308 146l24 24M492 146l-24 24M308 330l24-24M492 330l-24-24"></path>
+  </g>
+  <g fill="#a3813c" opacity="0.75">
+    <circle cx="400" cy="238" r="3.4"></circle>
+    <circle cx="70" cy="470" r="2.4"></circle>
+    <circle cx="730" cy="470" r="2.4"></circle>
+    <path d="M400 500l5 7-5 7-5-7z"></path>
+  </g>
+  <g fill="none" stroke="#a3813c" stroke-width="0.8" opacity="0.45">
+    <path d="M330 470v-46a70 70 0 0 1 140 0v46"></path>
+    <path d="M356 470v-42a44 44 0 0 1 88 0v42"></path>
+  </g>
+</svg>

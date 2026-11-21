@@ -1,0 +1,77 @@
+<header class="page-head">
+  <p class="page-kicker">{{sections.guestbook.en}} · {{sections.guestbook.kicker}}</p>
+  <h1 class="page-title">{{sections.guestbook.title}}</h1>
+  <figure class="epigraph">
+    <blockquote>{{epigraph.text}}</blockquote>
+    <figcaption>{{epigraph.note}}</figcaption>
+  </figure>
+  <p class="page-count">现有 {{total}} 条留言。</p>
+</header>
+
+<div class="guestbook">
+  {{^features.giscus.repo}}
+  <form class="gb-form" id="gb-form">
+    <div class="gb-field">
+      <label for="gb-name">称呼</label>
+      <input id="gb-name" name="name" maxlength="24" placeholder="怎么称呼你" required>
+    </div>
+    <div class="gb-field">
+      <label for="gb-text">留言</label>
+      <textarea id="gb-text" name="text" maxlength="280" rows="3" placeholder="写几个字，贴在门楣上。" required></textarea>
+    </div>
+    <div class="gb-actions">
+      <span class="gb-count" id="gb-count">0 / 280</span>
+      <button class="btn" type="submit">贴上去</button>
+    </div>
+    <p class="gb-note">
+      这块留言板是<b>本地模式</b>：留言存在你自己的浏览器里，换台设备就看不见，也不会有人收到通知。
+      想换成真正能收到的留言板，看下面的「留言板接入」。
+    </p>
+  </form>
+
+  <ul class="gb-list" id="gb-list">
+    {{#seed}}
+    <li class="gb-item">
+      <p class="gb-head"><strong>{{name}}</strong><time>{{date}}</time></p>
+      <p class="gb-text">{{text}}</p>
+    </li>
+    {{/seed}}
+  </ul>
+  <p class="gb-empty" id="gb-empty" hidden>还没有人留言。第一个位置留给你。</p>
+  {{/features.giscus.repo}}
+
+  {{#features.giscus.repo}}
+  <div class="giscus-wrap">
+    <p class="giscus-intro">留言由 GitHub Discussions 托管，需要登录 GitHub 账号。</p>
+    <script src="https://giscus.app/client.js"
+      data-repo="{{features.giscus.repo}}"
+      data-repo-id="{{features.giscus.repoId}}"
+      data-category="{{features.giscus.category}}"
+      data-category-id="{{features.giscus.categoryId}}"
+      data-mapping="pathname"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="zh-CN"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async></script>
+  </div>
+  {{/features.giscus.repo}}
+</div>
+
+<details class="gb-help">
+  <summary>留言板接入</summary>
+  <div class="gb-help-body">
+    <p><b>一、本地模式（默认）</b>：不用任何服务，留言只存在访客自己的浏览器里，适合先占个位置。</p>
+    <p><b>二、Giscus（推荐，免费）</b>：留言存到你 GitHub 仓库的 Discussions 里，访客用 GitHub 账号登录后发言。</p>
+    <ol>
+      <li>建一个公开仓库，给它开启 Discussions。</li>
+      <li>打开 <a href="https://giscus.app/zh-CN" target="_blank" rel="noopener noreferrer">giscus.app</a>，填入仓库名，选一个 Discussion 分类。</li>
+      <li>把页面给出的 <code>data-repo</code>、<code>data-repo-id</code>、<code>data-category-id</code> 抄进 <code>site.config.json</code> 的 <code>features.giscus</code>。</li>
+      <li>重新 <code>python build.py</code>。只要 <code>repo</code> 不为空，这块留言板会自动换成 Giscus。</li>
+    </ol>
+    <p><b>三、自建接口</b>：如果你以后有了服务器，把 <code>assets/js/site.js</code> 里第 10 节的 <code>localStorage</code> 换成 <code>fetch('/api/messages')</code> 即可，页面结构不用动。</p>
+  </div>
+</details>

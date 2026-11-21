@@ -1,0 +1,131 @@
+{
+  "domain": "muzetr123.netlify.app",
+  "baseUrl": "https://muzetr123.netlify.app",
+  "title": "饮冰室",
+  "titleEn": "The Ice-Drinking Room",
+  "titleShort": "飲冰",
+  "brandLatin": "MUZETR",
+  "motto": "朝受命而夕饮冰，我其内热与。",
+  "mottoSource": "《庄子·人间世》",
+  "description": "饮冰室，一个人的书房。文章、碎碎念、书影音收藏、旧物与手艺，偶尔有技术札记。",
+  "author": {
+    "name": "饮冰室主人",
+    "handle": "@muzetr",
+    "email": "2954533369@qq.com"
+  },
+  "founded": "2026",
+  "locale": "zh-CN",
+  "deploy": {
+    "netlifySite": "muzetr123"
+  },
+  "nav": [
+    { "label": "首页", "en": "Index", "url": "/" },
+    { "label": "文章", "en": "Essays", "url": "/posts/" },
+    { "label": "碎碎念", "en": "Marginalia", "url": "/notes/" },
+    { "label": "收藏", "en": "Collection", "url": "/collection/" },
+    { "label": "作品", "en": "Works", "url": "/projects/" },
+    { "label": "友链", "en": "Friends", "url": "/friends/" },
+    { "label": "关于", "en": "About", "url": "/about/" }
+  ],
+  "sections": {
+    "posts": {
+      "title": "文章",
+      "en": "Essays",
+      "kicker": "长一点的文字",
+      "epigraph": "Littera occidit, spiritus vivificat.",
+      "epigraphNote": "字句叫人死，精意叫人活。"
+    },
+    "notes": {
+      "title": "碎碎念",
+      "en": "Marginalia",
+      "kicker": "比文章轻一点的记录",
+      "epigraph": "人无癖不可与交，以其无深情也。",
+      "epigraphNote": "张岱《陶庵梦忆》"
+    },
+    "collection": {
+      "title": "收藏",
+      "en": "Collection",
+      "kicker": "书、影、番",
+      "epigraph": "Omne tulit punctum qui miscuit utile dulci.",
+      "epigraphNote": "贺拉斯《诗艺》：寓教于乐者，得众人之心。"
+    },
+    "projects": {
+      "title": "作品",
+      "en": "Works",
+      "kicker": "做出来的东西",
+      "epigraph": "Faciendo discimus.",
+      "epigraphNote": "在做的过程中学习。"
+    },
+    "friends": {
+      "title": "友链",
+      "en": "Friends",
+      "kicker": "常去的地方",
+      "epigraph": "Amicus est alter idem.",
+      "epigraphNote": "朋友是另一个自己。"
+    },
+    "about": {
+      "title": "关于",
+      "en": "About",
+      "kicker": "这间屋子的主人",
+      "epigraph": "Nosce te ipsum.",
+      "epigraphNote": "认识你自己。"
+    },
+    "locked": {
+      "title": "私密",
+      "en": "Under the Rose",
+      "kicker": "需要口令的文章",
+      "epigraph": "Sub rosa.",
+      "epigraphNote": "玫瑰之下，言者无咎。"
+    },
+    "guestbook": {
+      "title": "留言",
+      "en": "Guestbook",
+      "kicker": "在门楣上写几个字",
+      "epigraph": "Verba volant, scripta manent.",
+      "epigraphNote": "话语飞逝，文字留存。"
+    },
+    "archive": {
+      "title": "归档",
+      "en": "Archive",
+      "kicker": "按年月排好",
+      "epigraph": "Tempus fugit.",
+      "epigraphNote": "光阴飞逝。"
+    },
+    "tags": {
+      "title": "标签",
+      "en": "Tags",
+      "kicker": "书脊上的分类号",
+      "epigraph": "Ordo est anima rerum.",
+      "epigraphNote": "秩序是事物之魂。"
+    }
+  },
+  "features": {
+    "search": true,
+    "guestbook": true,
+    "pwa": true,
+    "themeToggle": true,
+    "readingSettings": true,
+    "comments": { "provider": "netlify", "apiBase": "/api", "enabled": false },
+    "guestbookMode": "local",
+    "giscus": {
+      "repo": "",
+      "repoId": "",
+      "category": "General",
+      "categoryId": ""
+    },
+    "analytics": {
+      "provider": "",
+      "siteId": ""
+    }
+  },
+  "social": [
+    { "label": "GitHub", "url": "https://github.com/muzetr", "handle": "muzetr" },
+    { "label": "邮箱", "url": "mailto:2954533369@qq.com", "handle": "2954533369@qq.com" },
+    { "label": "RSS", "url": "/feed.xml", "handle": "订阅" }
+  ],
+  "build": {
+    "out": "public",
+    "postsPerPage": 12,
+    "ogImages": true
+  }
+}

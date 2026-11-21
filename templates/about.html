@@ -1,0 +1,70 @@
+<header class="page-head">
+  <p class="page-kicker">{{sections.about.en}} · {{sections.about.kicker}}</p>
+  <h1 class="page-title">{{sections.about.title}}</h1>
+  <figure class="epigraph">
+    <blockquote>{{epigraph.text}}</blockquote>
+    <figcaption>{{epigraph.note}}</figcaption>
+  </figure>
+</header>
+
+<div class="about-grid">
+  <section class="about-intro prose">
+    {{#about.intro}}<p>{{.}}</p>{{/about.intro}}
+  </section>
+  <aside class="about-now">
+    <p class="about-now-label">此刻<span>Now</span></p>
+    <dl class="now-list">
+      {{#about.now}}
+      <div class="now-item"><dt>{{label}}</dt><dd>{{value}}</dd></div>
+      {{/about.now}}
+    </dl>
+  </aside>
+</div>
+
+<section class="about-block" aria-labelledby="about-chron">
+  <h2 class="about-h2" id="about-chron">年表<span>Chronology</span></h2>
+  <div class="chron">
+    {{#about.timeline_groups}}
+    <div class="chron-year">
+      <p class="chron-year-label">{{year}}</p>
+      <ul class="chron-list">
+        {{#entries}}
+        <li class="chron-item">
+          <span class="chron-month">{{month}}</span>
+          <div class="chron-body">
+            <p class="chron-title">{{title}}</p>
+            <p class="chron-text">{{text}}</p>
+          </div>
+        </li>
+        {{/entries}}
+      </ul>
+    </div>
+    {{/about.timeline_groups}}
+  </div>
+</section>
+
+<section class="about-block" aria-labelledby="about-skills">
+  <h2 class="about-h2" id="about-skills">手艺<span>Skills</span></h2>
+  <dl class="skills">
+    {{#about.skills}}
+    <div class="skill-group">
+      <dt>{{group}}</dt>
+      <dd>{{#items}}<span class="tag">{{.}}</span>{{/items}}</dd>
+    </div>
+    {{/about.skills}}
+  </dl>
+</section>
+
+<section class="about-block" aria-labelledby="about-contact">
+  <h2 class="about-h2" id="about-contact">通信<span>Correspondence</span></h2>
+  <ul class="contact-list">
+    {{#about.contacts}}
+    <li><span class="contact-label">{{label}}</span><a href="{{url}}">{{value}}</a></li>
+    {{/about.contacts}}
+  </ul>
+</section>
+
+<footer class="about-colophon">
+  <p class="about-h3">版本说明<span>Colophon</span></p>
+  <p>{{about.colophon}}</p>
+</footer>

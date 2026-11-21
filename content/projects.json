@@ -1,0 +1,92 @@
+[
+  {
+    "title": "饮冰室",
+    "year": "2026",
+    "subtitle": "把一间书房做成能长久住下去的站点",
+    "summary": "想要一个不依赖框架、十年后还能跑的个人站，于是写了个零依赖的 Python 生成器：Markdown 进，静态页出，一秒不到。加密文章的解锁也在构建时处理完。",
+    "stack": [
+      "Python",
+      "Markdown"
+    ],
+    "status": "进行中",
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/"
+      },
+      {
+        "label": "线上地址",
+        "url": "https://muzetr123.netlify.app"
+      }
+    ],
+    "featured": true
+  },
+  {
+    "title": "眉批",
+    "year": "2026",
+    "subtitle": "把散在各处的读书笔记收进一个能搜的库里",
+    "summary": "笔记散在纸本和几个文本文件里，找一句话要翻半小时。写了个导入器，把标记过的段落抽成条目，正文与批注分开存进 SQLite，搜一个词就能看见当时划的线。",
+    "stack": [
+      "Python",
+      "SQLite"
+    ],
+    "status": "进行中",
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/"
+      }
+    ],
+    "featured": true
+  },
+  {
+    "title": "归位",
+    "year": "2025",
+    "subtitle": "一条命令把下载目录里几百张图分好类",
+    "summary": "照片导出之后，文件名乱得像倒出来的抽屉。这个命令行工具按拍摄日期建目录，重命名成日期加时分秒，重复的按哈希比对。默认只打印计划，加参数才动手。",
+    "stack": [
+      "Python",
+      "Pillow"
+    ],
+    "status": "已完成",
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/"
+      }
+    ],
+    "featured": false
+  },
+  {
+    "title": "雨日",
+    "year": "2025",
+    "subtitle": "十年降水记录，画成一张能看出季节的图",
+    "summary": "想知道这里的雨是不是真的变少了。抓来气象站十年的逐日降水，清洗成一张按日组织的表，画成一张图：横轴排满一年，纵轴是钟点，颜色表示雨量。",
+    "stack": [
+      "Python",
+      "D3.js"
+    ],
+    "status": "沉淀中",
+    "links": [],
+    "featured": false
+  },
+  {
+    "title": "负片",
+    "year": "2024",
+    "subtitle": "把十几年的照片归档成能翻的东西",
+    "summary": "硬盘里堆着六万多张照片，目录名从 DCIM 到“新建文件夹(3)”。做了个归档实验：按年月建目录，用 EXIF 补回拍摄时间，重复的只留一张，再输出清单。",
+    "stack": [
+      "Python",
+      "Pillow",
+      "SQLite"
+    ],
+    "status": "沉淀中",
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/"
+      }
+    ],
+    "featured": false
+  }
+]

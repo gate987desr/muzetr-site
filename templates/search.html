@@ -1,0 +1,22 @@
+<header class="page-head page-head-compact">
+  <p class="page-kicker">Search · 检索</p>
+  <h1 class="page-title">检索</h1>
+  <p class="page-count">在 {{total}} 条记录里找一句话。</p>
+</header>
+
+<div class="search-page">
+  <div class="search-field">
+    <span class="search-mark" aria-hidden="true">⌕</span>
+    <label class="sr-only" for="search-input">关键词</label>
+    <input id="search-input" class="search-input" type="search" placeholder="试试：书房、旧物、夜、Python" autocomplete="off" spellcheck="false">
+  </div>
+  <div class="chips" data-search-kinds>
+    <button type="button" class="chip is-active" data-kind="*">全部</button>
+    <button type="button" class="chip" data-kind="post">文章</button>
+    <button type="button" class="chip" data-kind="note">碎碎念</button>
+    <button type="button" class="chip" data-kind="collection">收藏</button>
+    <button type="button" class="chip" data-kind="project">作品</button>
+  </div>
+  <ul class="search-results" id="search-results"></ul>
+  <p class="search-hint" id="search-hint">输入两个字以上就开始找。也可以按 Ctrl/⌘ + K 在任意页面唤出检索。</p>
+</div>

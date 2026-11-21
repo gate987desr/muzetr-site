@@ -1,0 +1,119 @@
+<article class="essay">
+  <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+  <header class="essay-head">
+    <p class="essay-kicker">
+      <a href="/categories/{{post.category_slug}}/">{{post.category}}</a>
+      <span aria-hidden="true">·</span>
+      <time datetime="{{post.date}}">{{post.date_cn}}</time>
+      <span aria-hidden="true">·</span>
+      <span>{{post.minutes}} 分钟</span>
+    </p>
+    <h1 class="essay-title">{{post.title}}</h1>
+    {{#post.title_en}}<p class="essay-subtitle">{{post.title_en}}</p>{{/post.title_en}}
+    <p class="essay-deck">{{post.summary}}</p>
+    <p class="essay-seal" aria-hidden="true">{{post.number}}</p>
+  </header>
+
+  <div class="essay-layout{{^post.toc}} essay-layout-plain{{/post.toc}}">
+    <aside class="essay-margin">
+      {{#post.has_toc}}{{{toc_html}}}{{/post.has_toc}}
+    </aside>
+
+    <div class="essay-body">
+      {{#post.locked}}
+      <section class="lock" id="lock" data-lock data-slug="{{post.slug}}">
+        <div class="lock-seal" aria-hidden="true">※</div>
+        <h2 class="lock-title">这篇上了锁</h2>
+        <p class="lock-hint">口令提示：{{post.password_hint}}</p>
+        <form class="lock-form" data-lock-form>
+          <label class="sr-only" for="lock-input">口令</label>
+          <input id="lock-input" type="password" name="password" placeholder="输入口令" autocomplete="current-password" required>
+          <button class="btn" type="submit">开封</button>
+        </form>
+        <p class="lock-status" data-lock-status role="status"></p>
+        <div class="prose lock-body" data-lock-body hidden></div>
+        <script type="application/json" id="lock-data">{{{post.payload_json}}}</script>
+      </section>
+      {{/post.locked}}
+      {{^post.locked}}
+      <div class="prose">{{{content_html}}}</div>
+      {{/post.locked}}
+    </div>
+  </div>
+
+  <footer class="essay-foot">
+    <div class="essay-tags">
+      <span class="essay-tags-label">收在</span>
+      {{#post.tag_links}}<a class="tag" href="{{url}}">{{label}}</a>{{/post.tag_links}}
+      <a class="tag tag-cat" href="/categories/{{post.category_slug}}/">{{post.category}}</a>
+    </div>
+
+    <nav class="essay-nav" aria-label="上下篇">      {{#post.newer}}
+      <a class="essay-nav-item essay-nav-prev" href="{{url}}">
+        <span class="essay-nav-dir">← 上一篇</span>
+        <strong>{{title}}</strong>
+      </a>
+      {{/post.newer}}
+      {{#post.older}}
+      <a class="essay-nav-item essay-nav-next" href="{{url}}">
+        <span class="essay-nav-dir">下一篇 →</span>
+        <strong>{{title}}</strong>
+      </a>
+      {{/post.older}}
+    </nav>
+
+    <section class="related" aria-labelledby="related-title">
+      <h2 class="related-title" id="related-title">也许还读得下去</h2>
+      <ul class="related-list">
+        {{#post.related}}
+        <li><a href="{{url}}"><span class="related-cat">{{category}}</span>{{title}}</a></li>
+        {{/post.related}}
+      </ul>
+    </section>
+
+    {{#comments_enabled}}
+    <section class="comments" id="comments" data-provider="{{features.comments.provider}}" data-api="{{features.comments.apiBase}}" aria-label="评论">
+      <h2 class="comments-title">评论<span>Comments</span><em class="comments-count" data-count></em></h2>
+      <div class="comments-body" id="comments-body">
+        <p class="comments-hint">正在加载评论…</p>
+      </div>
+
+      {{#comments_native}}
+      <form class="comment-form" id="comment-form" autocomplete="off">
+        <div class="comment-field">
+          <label for="comment-name">昵称</label>
+          <input id="comment-name" name="name" maxlength="24" required placeholder="怎么称呼你">
+        </div>
+        <div class="comment-field">
+          <label for="comment-body">评论内容</label>
+          <textarea id="comment-body" name="body" maxlength="800" rows="4" placeholder="可以写文字，也可以只发一张图片。"></textarea>
+        </div>
+        <div class="comment-actions">
+          <label class="comment-file">
+            <input type="file" id="comment-image" accept="image/jpeg,image/png,image/webp,image/gif">
+            <span>添加图片</span>
+          </label>
+          <span class="comment-hint">JPG / PNG / WEBP / GIF，最大 2 MB</span>
+          <button class="btn" type="submit">发布评论</button>
+        </div>
+        <p class="comment-status" id="comment-status" role="status"></p>
+      </form>
+      {{/comments_native}}
+
+      {{#comments_giscus}}
+      <p class="comments-fallback">没有 GitHub 账号？<a href="mailto:{{site.author.email}}?subject={{post.mailto_subject}}">直接写信给我</a>，我读到了会贴在文末。</p>
+      {{/comments_giscus}}
+    </section>
+    <script type="application/json" id="comments-config">{{{comments_config}}}</script>
+    {{/comments_enabled}}
+
+    {{^comments_enabled}}
+    <p class="essay-feedback">读到这里想说点什么？<a href="mailto:{{site.author.email}}?subject={{post.mailto_subject}}">写信给我</a> · {{site.author.email}} · 我读到了会贴在文末。</p>
+    {{/comments_enabled}}
+
+    <p class="essay-colophon">
+      写于 {{post.date_cn}} · 全文 {{post.words}} 字 · 最后誊清 {{build.date}}
+    </p>
+  </footer>
+</article>
+<script type="application/ld+json">{{{post.jsonld}}}</script>

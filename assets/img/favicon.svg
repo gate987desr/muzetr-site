@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="饮冰室">
+  <rect width="64" height="64" rx="7" fill="#241c15"></rect>
+  <rect x="5.5" y="5.5" width="53" height="53" rx="4" fill="none" stroke="#c9a25b" stroke-width="1.6"></rect>
+  <text x="32" y="44" text-anchor="middle" font-family="Songti SC, STSong, SimSun, serif" font-size="35" fill="#f3ead8">冰</text>
+</svg>

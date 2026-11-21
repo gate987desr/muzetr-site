@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Keke's Atelier",
+    "url": "https://kekenest.com",
+    "desc": "一个人的多媒体工坊，霓虹与玻璃纸。本站的起点。",
+    "since": "2026"
+  },
+  {
+    "name": "阮一峰的网络日志",
+    "url": "https://www.ruanyifeng.com",
+    "desc": "每周五的科技周刊，看了十年，一期没落。",
+    "since": "2023"
+  },
+  {
+    "name": "DIYgod",
+    "url": "https://diygod.cc",
+    "desc": "把 RSS 当信仰的人，站点本身也值得慢慢看。",
+    "since": "2024"
+  },
+  {
+    "name": "NeoDB",
+    "url": "https://neodb.social",
+    "desc": "书影音的标记都记在这里，干净，不催你打分。",
+    "since": "2024"
+  },
+  {
+    "name": "少数派",
+    "url": "https://sspai.com",
+    "desc": "想知道一件工具还能怎么用得更好时，先来这儿。",
+    "since": "2023"
+  },
+  {
+    "name": "机核",
+    "url": "https://www.gcores.com",
+    "desc": "听人认真谈游戏和书，通勤路上最好的陪伴。",
+    "since": "2025"
+  }
+]

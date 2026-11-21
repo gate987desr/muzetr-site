@@ -1,0 +1,103 @@
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-main">
+      <p class="hero-kicker"><span>一个人的书房</span><span class="hero-rule" aria-hidden="true"></span><span>{{site.brandLatin}}</span></p>
+      <h1 class="hero-title">{{site.title}}</h1>
+      <p class="hero-latin">{{site.titleEn}}</p>
+      <p class="hero-lede">{{site.description}}</p>
+      <blockquote class="hero-motto">
+        <p>{{site.motto}}</p>
+        <cite>{{site.mottoSource}}</cite>
+      </blockquote>
+      <p class="hero-actions">
+        <a class="btn" href="/posts/">读文章</a>
+        <a class="btn btn-ghost" href="/about/">关于这间屋子</a>
+      </p>
+    </div>
+    <aside class="hero-side">
+      <div class="hero-seal">{{> seal.html }}</div>
+      <p class="hero-vertical" aria-hidden="true">朝受命而夕饮冰</p>
+      <div class="hero-today">
+        <p class="hero-today-label">今日</p>
+        <p class="hero-today-date" data-today>{{today.cn}}</p>
+        <p class="hero-today-week" data-today-week>{{today.weekday}} · {{today.latin}}</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="block" aria-labelledby="block-featured">
+  <header class="block-head">
+    <p class="block-kicker">Featured</p>
+    <h2 class="block-title" id="block-featured">精选</h2>
+  </header>
+  <div class="plates">{{{featured_html}}}</div>
+</section>
+
+<section class="block" aria-labelledby="block-recent">
+  <header class="block-head">
+    <p class="block-kicker">Recently written</p>
+    <h2 class="block-title" id="block-recent">最新</h2>
+    <a class="block-more" href="/posts/">全部文章<i aria-hidden="true">→</i></a>
+  </header>
+  <div class="rows">{{{latest_html}}}</div>
+</section>
+
+<div class="block-divider" aria-hidden="true">{{> flourish.html }}</div>
+
+<section class="block block-split" aria-labelledby="block-notes">
+  <div class="split-col">
+    <header class="block-head">
+      <p class="block-kicker">Marginalia</p>
+      <h2 class="block-title" id="block-notes">碎碎念</h2>
+      <a class="block-more" href="/notes/">更多<i aria-hidden="true">→</i></a>
+    </header>
+    <ul class="notes">{{{notes_html}}}</ul>
+  </div>
+  <div class="split-col">
+    <header class="block-head">
+      <p class="block-kicker">On the shelf</p>
+      <h2 class="block-title">架上</h2>
+      <a class="block-more" href="/collection/">全部<i aria-hidden="true">→</i></a>
+    </header>
+    <ul class="shelf">
+      {{#top_collection}}
+      <li class="shelf-item">
+        <span class="shelf-score">{{score_text}}</span>
+        <span class="shelf-title">{{title}}</span>
+        <span class="shelf-type">{{type_label}}</span>
+      </li>
+      {{/top_collection}}
+    </ul>
+  </div>
+</section>
+
+<section class="block" aria-labelledby="block-works">
+  <header class="block-head">
+    <p class="block-kicker">Works</p>
+    <h2 class="block-title" id="block-works">作品</h2>
+    <a class="block-more" href="/projects/">全部<i aria-hidden="true">→</i></a>
+  </header>
+  <div class="works">
+    {{#featured_projects}}
+    <article class="work">
+      <p class="work-year">{{year}} · {{status}}</p>
+      <h3 class="work-title">{{title}}</h3>
+      <p class="work-sub">{{subtitle}}</p>
+      <p class="work-stack">{{#stack}}<span>{{.}}</span>{{/stack}}</p>
+    </article>
+    {{/featured_projects}}
+  </div>
+</section>
+
+<section class="block block-mail" aria-labelledby="block-mail">
+  <div class="mail-card">
+    <p class="block-kicker">Correspondence</p>
+    <h2 class="block-title" id="block-mail">写信</h2>
+    <p class="mail-text">如果你也读书、也修东西、也在夜里写字，欢迎来信。<br>信箱常年开着，回信可能慢一些。</p>
+    <p class="mail-actions">
+      <a class="btn" href="mailto:{{site.author.email}}">{{site.author.email}}</a>
+      <a class="btn btn-ghost" href="/guestbook/">在门楣上留言</a>
+    </p>
+  </div>
+</section>

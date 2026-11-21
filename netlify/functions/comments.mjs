@@ -1,0 +1,115 @@
+import { getStore } from "@netlify/blobs";
+import { createHash, randomUUID } from "node:crypto";
+
+const STORE = "muzetr-comments";
+const MAX_NAME = 24;
+const MAX_BODY = 800;
+const MAX_IMAGE_BYTES = 2 * 1024 * 1024;
+const PER_IP_PER_DAY = 20;
+
+const ALLOWED_IMAGE = {
+  "image/jpeg": "jpg",
+  "image/png": "png",
+  "image/webp": "webp",
+  "image/gif": "gif",
+};
+
+function json(data, status = 200) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: {
+      "content-type": "application/json; charset=utf-8",
+      "cache-control": "no-store",
+    },
+  });
+}
+
+function hashIp(ip) {
+  return createHash("sha256").update(ip + "|muzetr").digest("hex").slice(0, 16);
+}
+
+function decodeImage(dataUrl) {
+  if (typeof dataUrl !== "string" || !dataUrl.startsWith("data:")) return null;
+  const match = /^data:([^;]+);base64,(.+)$/s.exec(dataUrl);
+  if (!match) return null;
+  const mime = match[1].toLowerCase();
+  if (!ALLOWED_IMAGE[mime]) return { error: "unsupported-image" };
+  let bytes;
+  try {
+    bytes = Uint8Array.from(Buffer.from(match[2], "base64"));
+  } catch {
+    return { error: "bad-image" };
+  }
+  if (bytes.byteLength > MAX_IMAGE_BYTES) return { error: "image-too-large" };
+  return { mime, bytes, ext: ALLOWED_IMAGE[mime] };
+}
+
+export default async function handler(request) {
+  const store = getStore({ name: STORE, consistency: "strong" });
+  const url = new URL(request.url);
+  const pagePath = (url.searchParams.get("path") || "").slice(0, 200);
+
+  if (request.method === "GET") {
+    if (!pagePath) return json({ comments: [] });
+    const prefix = `c/${encodeURIComponent(pagePath)}/`;
+    const { blobs } = await store.list({ prefix });
+    const loaded = await Promise.all(
+      blobs.slice(-300).map((blob) => store.get(blob.key, { type: "json" }).catch(() => null))
+    );
+    const comments = loaded
+      .filter((item) => item && !item.hidden)
+      .map(({ ipHash, ...rest }) => rest)
+      .sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+    return json({ comments });
+  }
+
+  if (request.method !== "POST") return json({ error: "method" }, 405);
+
+  let payload;
+  try {
+    payload = await request.json();
+  } catch {
+    return json({ error: "bad-json" }, 400);
+  }
+
+  if (payload.website) return json({ ok: true, spam: true });
+
+  const name = String(payload.name || "").trim().slice(0, MAX_NAME);
+  const body = String(payload.body || "").trim().slice(0, MAX_BODY);
+  const target = String(payload.path || "").slice(0, 200);
+  if (!name || !body || !target) return json({ error: "empty" }, 400);
+  if (body.length < 2) return json({ error: "too-short" }, 400);
+
+  const ip =
+    request.headers.get("x-nf-client-connection-ip") ||
+    (request.headers.get("x-forwarded-for") || "").split(",")[0].trim();
+  const ipHash = hashIp(ip || "unknown");
+
+  const day = new Date().toISOString().slice(0, 10);
+  const rateKey = `rl/${ipHash}/${day}`;
+  const used = (await store.get(rateKey, { type: "text" }).catch(() => null)) || "0";
+  const count = Number.parseInt(used, 10) || 0;
+  if (count >= PER_IP_PER_DAY) return json({ error: "rate-limited" }, 429);
+
+  let imageUrl = null;
+  if (payload.image) {
+    const decoded = decodeImage(payload.image);
+    if (!decoded) return json({ error: "bad-image" }, 400);
+    if (decoded.error) return json({ error: decoded.error }, 400);
+    const key = `img/${randomUUID()}.${decoded.ext}`;
+    await store.set(key, decoded.bytes, { metadata: { contentType: decoded.mime } });
+    imageUrl = `/api/image/${key.split("/")[1]}`;
+  }
+
+  const id = randomUUID();
+  const createdAt = Date.now();
+  const comment = { id, name, body, image: imageUrl, createdAt };
+  await store.setJSON(`c/${encodeURIComponent(target)}/${String(createdAt).padStart(14, "0")}-${id}.json`, {
+    ...comment,
+    ipHash,
+  });
+  await store.set(rateKey, String(count + 1));
+  return json({ ok: true, comment });
+}
+
+export const config = { path: "/api/comments" };

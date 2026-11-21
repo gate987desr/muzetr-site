@@ -1,0 +1,25 @@
+<header class="page-head">
+  <p class="page-kicker">{{sections.tags.en}} · {{sections.tags.kicker}}</p>
+  <h1 class="page-title">{{sections.tags.title}}</h1>
+  <figure class="epigraph">
+    <blockquote>{{epigraph.text}}</blockquote>
+    <figcaption>{{epigraph.note}}</figcaption>
+  </figure>
+  <p class="page-count">{{stats.tags}} 个标签，像书脊上的分类号。</p>
+</header>
+
+<ul class="tag-cloud">
+  {{#tag_list}}
+  <li class="tag-cloud-item">
+    <a href="/tags/{{slug}}/">
+      <span class="tag-cloud-name">{{label}}</span>
+      <span class="tag-cloud-count">{{count}}</span>
+    </a>
+  </li>
+  {{/tag_list}}
+</ul>
+
+<nav class="page-foot-nav" aria-label="更多">
+  <a href="/categories/">按栏目浏览<i aria-hidden="true">→</i></a>
+  <a href="/archive/">按年归档<i aria-hidden="true">→</i></a>
+</nav>

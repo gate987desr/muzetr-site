@@ -1,0 +1,10 @@
+<li class="note" id="{{note.id}}" data-tags="{{#note.tags}}{{.}} {{/note.tags}}">
+  <div class="note-rail">
+    <time datetime="{{note.date}}">{{note.date_cn}}</time>
+    <span class="note-mark" aria-hidden="true">·</span>
+  </div>
+  <div class="note-body">
+    <div class="note-text">{{{note.text_html}}}</div>
+    <p class="note-tags">{{#note.tags}}<span class="tag">{{.}}</span>{{/note.tags}}</p>
+  </div>
+</li>

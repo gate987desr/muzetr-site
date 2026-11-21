@@ -1,0 +1,20 @@
+# 生成结果（部署时才需要，不必入库）
+public/
+
+# 依赖与 Netlify 本地缓存
+node_modules/
+.netlify/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# 编辑器与系统
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# 本地调试
+.edge-profile/
+shots/

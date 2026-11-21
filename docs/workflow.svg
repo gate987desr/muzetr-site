@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 320" role="img" aria-label="从本地内容到 muzetr.com 的流程">
+  <rect width="1000" height="320" fill="#f3ead8"/>
+  <text x="500" y="42" text-anchor="middle" font-family="Songti SC, STSong, SimSun, serif" font-size="21" fill="#241c15" letter-spacing="4">从你的电脑，到 muzetr.com</text>
+  <line x1="330" y1="60" x2="670" y2="60" stroke="#a3813c" stroke-width="1" opacity="0.6"/>
+
+  <!-- 步骤编号 -->
+  <g font-family="Cormorant Garamond, EB Garamond, Georgia, serif" font-size="12" fill="#a3813c" letter-spacing="2" text-anchor="middle">
+    <text x="105" y="92">STEP 1</text>
+    <text x="300" y="92">STEP 2</text>
+    <text x="495" y="92">STEP 3</text>
+    <text x="690" y="92">STEP 4</text>
+    <text x="885" y="92">STEP 5</text>
+  </g>
+
+  <!-- 方框 -->
+  <g fill="#efe4cd" stroke="#241c15" stroke-width="1.2">
+    <rect x="30" y="102" width="150" height="94" rx="2"/>
+    <rect x="225" y="102" width="150" height="94" rx="2"/>
+    <rect x="420" y="102" width="150" height="94" rx="2"/>
+    <rect x="615" y="102" width="150" height="94" rx="2"/>
+    <rect x="810" y="102" width="150" height="94" rx="2"/>
+  </g>
+  <g fill="none" stroke="#a3813c" stroke-width="0.8" opacity="0.55">
+    <rect x="35" y="107" width="140" height="84"/>
+    <rect x="230" y="107" width="140" height="84"/>
+    <rect x="425" y="107" width="140" height="84"/>
+    <rect x="620" y="107" width="140" height="84"/>
+    <rect x="815" y="107" width="140" height="84"/>
+  </g>
+
+  <!-- 方框里的文字 -->
+  <g font-family="Songti SC, STSong, SimSun, serif" text-anchor="middle">
+    <text x="105" y="140" font-size="17" fill="#8c2f20" letter-spacing="1">content/</text>
+    <text x="105" y="166" font-size="12" fill="#4c3d2f">你写的文章与数据</text>
+    <text x="105" y="184" font-size="11" fill="#7d6a54">Markdown · JSON</text>
+
+    <text x="300" y="140" font-size="16" fill="#8c2f20">python build.py</text>
+    <text x="300" y="166" font-size="12" fill="#4c3d2f">一条命令</text>
+    <text x="300" y="184" font-size="11" fill="#7d6a54">双击 build.cmd</text>
+
+    <text x="495" y="140" font-size="17" fill="#8c2f20" letter-spacing="1">public/</text>
+    <text x="495" y="166" font-size="12" fill="#4c3d2f">45 个静态网页</text>
+    <text x="495" y="184" font-size="11" fill="#7d6a54">自动生成，别手改</text>
+
+    <text x="690" y="140" font-size="15" fill="#8c2f20">上传</text>
+    <text x="690" y="166" font-size="12" fill="#4c3d2f">拖进 Netlify</text>
+    <text x="690" y="184" font-size="11" fill="#7d6a54">或推送到 GitHub</text>
+
+    <text x="885" y="140" font-size="16" fill="#8c2f20">muzetr.com</text>
+    <text x="885" y="166" font-size="12" fill="#4c3d2f">读者打开</text>
+    <text x="885" y="184" font-size="11" fill="#7d6a54">自动 HTTPS</text>
+  </g>
+
+  <!-- 箭头 -->
+  <g stroke="#8c2f20" stroke-width="1.2" fill="#8c2f20">
+    <line x1="182" y1="149" x2="216" y2="149"/><path d="M216 145l7 4-7 4z"/>
+    <line x1="377" y1="149" x2="411" y2="149"/><path d="M411 145l7 4-7 4z"/>
+    <line x1="572" y1="149" x2="606" y2="149"/><path d="M606 145l7 4-7 4z"/>
+    <line x1="767" y1="149" x2="801" y2="149"/><path d="M801 145l7 4-7 4z"/>
+  </g>
+
+  <!-- 底部说明 -->
+  <text x="500" y="248" text-anchor="middle" font-family="Songti SC, STSong, SimSun, serif" font-size="12.5" fill="#4c3d2f">每次改完内容，只要重复 STEP 2 → STEP 4，线上就会更新。</text>
+  <text x="500" y="274" text-anchor="middle" font-family="Songti SC, STSong, SimSun, serif" font-size="12.5" fill="#7d6a54">右侧两步由平台负责：帮你把文件放到服务器上，并自动配好 HTTPS 证书。</text>
+
+  <g fill="#a3813c">
+    <circle cx="500" cy="300" r="2.5"/>
+    <circle cx="470" cy="300" r="1.2"/><circle cx="530" cy="300" r="1.2"/>
+  </g>
+</svg>

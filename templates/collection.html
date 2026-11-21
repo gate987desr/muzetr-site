@@ -1,0 +1,43 @@
+<header class="page-head">
+  <p class="page-kicker">{{sections.collection.en}} · {{sections.collection.kicker}}</p>
+  <h1 class="page-title">{{sections.collection.title}}</h1>
+  <figure class="epigraph">
+    <blockquote>{{epigraph.text}}</blockquote>
+    <figcaption>{{epigraph.note}}</figcaption>
+  </figure>
+  <p class="page-count">共 {{total}} 部 · 番剧 {{counts.anime}} · 电影 {{counts.film}} · 书 {{counts.book}}</p>
+</header>
+
+<div class="collection-tools">
+  <div class="chips" data-collection-type>
+    <button type="button" class="chip is-active" data-value="*">全部</button>
+    <button type="button" class="chip" data-value="anime">番剧</button>
+    <button type="button" class="chip" data-value="film">电影</button>
+    <button type="button" class="chip" data-value="book">书</button>
+  </div>
+  <span class="chips-sep" aria-hidden="true"></span>
+  <div class="chips" data-collection-status>
+    <button type="button" class="chip is-active" data-value="*">不限状态</button>
+    <button type="button" class="chip" data-value="看完">看完</button>
+    <button type="button" class="chip" data-value="在看">在看</button>
+    <button type="button" class="chip" data-value="待看">待看</button>
+    <button type="button" class="chip" data-value="搁置">搁置</button>
+  </div>
+</div>
+
+<ul class="shelf-grid" data-shelf>
+  {{#items}}
+  <li class="shelf-card" id="{{anchor}}" data-type="{{type}}" data-status="{{status}}">
+    <div class="shelf-card-top">
+      <span class="shelf-card-type">{{type_label}}</span>
+      <span class="shelf-card-score" title="评分">{{score_text}}</span>
+    </div>
+    <h2 class="shelf-card-title">{{title}}</h2>
+    {{#original}}<p class="shelf-card-original">{{original}}</p>{{/original}}
+    <p class="shelf-card-meta">{{year_text}} · {{status}}</p>
+    <p class="shelf-card-note">{{note}}</p>
+    <p class="shelf-card-tags">{{#tags}}<span class="tag">{{.}}</span>{{/tags}}</p>
+  </li>
+  {{/items}}
+</ul>
+<p class="collection-empty" data-shelf-empty hidden>这一格是空的。</p>

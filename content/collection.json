@@ -1,0 +1,172 @@
+[
+  {
+    "type": "book",
+    "title": "高性价比人生指南",
+    "original": "HowToLiveBetter",
+    "year": 2026,
+    "status": "看完",
+    "score": null,
+    "note": "603 条按性价比排序的建议，每条都标了成本和证据等级。",
+    "tags": ["实用", "决策"]
+  },
+  {
+    "type": "anime",
+    "title": "虫师",
+    "original": "蟲師",
+    "year": 2005,
+    "status": "看完",
+    "score": 9.4,
+    "note": "每一集都像在等一场雨，雨停了，人也该走了。",
+    "tags": ["治愈", "幻想"]
+  },
+  {
+    "type": "anime",
+    "title": "星际牛仔",
+    "original": "カウボーイビバップ",
+    "year": 1998,
+    "status": "看完",
+    "score": 9.0,
+    "note": "看完最后一集，我把片尾曲又放了一遍。",
+    "tags": ["太空", "爵士"]
+  },
+  {
+    "type": "anime",
+    "title": "玲音",
+    "original": "serial experiments lain",
+    "year": 1998,
+    "status": "看完",
+    "score": 8.6,
+    "note": "看得半懂，但那阵电流声一直留在耳朵里。",
+    "tags": ["网络", "不安"]
+  },
+  {
+    "type": "anime",
+    "title": "四叠半神话大系",
+    "original": "四畳半神話大系",
+    "year": 2010,
+    "status": "看完",
+    "score": 9.1,
+    "note": "如果当初选了另一条路，大概也只是换一间四叠半。",
+    "tags": ["京都", "时间"]
+  },
+  {
+    "type": "anime",
+    "title": "攻壳机动队 SAC",
+    "original": "攻殻機動隊 STAND ALONE COMPLEX",
+    "year": 2002,
+    "status": "在看",
+    "score": 8.9,
+    "note": "一边看一边查注释，进度很慢，但不着急。",
+    "tags": ["赛博", "政治"]
+  },
+  {
+    "type": "anime",
+    "title": "冰菓",
+    "original": "氷菓",
+    "year": 2012,
+    "status": "待看",
+    "score": null,
+    "note": "被人反复推荐，先搁在架子上，等一个合适的冬天。",
+    "tags": ["日常", "推理"]
+  },
+  {
+    "type": "film",
+    "title": "千年女优",
+    "original": "千年女優",
+    "year": 2001,
+    "status": "看完",
+    "score": 9.2,
+    "note": "她追的也许不是那个人，是那个一直在追的自己。",
+    "tags": ["动画", "记忆"]
+  },
+  {
+    "type": "film",
+    "title": "七武士",
+    "original": "七人の侍",
+    "year": 1954,
+    "status": "看完",
+    "score": 9.3,
+    "note": "三个半小时，雨里最后一场戏，谁都没说话。",
+    "tags": ["黑白", "武士"]
+  },
+  {
+    "type": "film",
+    "title": "花样年华",
+    "original": "花樣年華",
+    "year": 2000,
+    "status": "看完",
+    "score": 8.8,
+    "note": "两个人始终没有一起走成一段路，音乐倒是走完了。",
+    "tags": ["香港", "克制"]
+  },
+  {
+    "type": "film",
+    "title": "一一",
+    "original": "Yi Yi",
+    "year": 2000,
+    "status": "看完",
+    "score": 9.1,
+    "note": "洋洋把相机对准别人的后脑勺，我忽然想哭。",
+    "tags": ["家庭", "台北"]
+  },
+  {
+    "type": "film",
+    "title": "潜行者",
+    "original": "Сталкер",
+    "year": 1979,
+    "status": "看完",
+    "score": 9.0,
+    "note": "第一次看到一半睡着，第二次才走进那个房间。",
+    "tags": ["塔可夫斯基", "缓慢"]
+  },
+  {
+    "type": "book",
+    "title": "卡拉马佐夫兄弟",
+    "original": "Братья Карамазовы",
+    "year": 1880,
+    "status": "看完",
+    "score": 9.6,
+    "note": "伊凡和阿辽沙在小酒馆那段，读完合上书坐了很久。",
+    "tags": ["俄国", "信仰"]
+  },
+  {
+    "type": "book",
+    "title": "庄子",
+    "original": "南华真经",
+    "year": -300,
+    "status": "看完",
+    "score": 9.8,
+    "note": "读到逍遥游才明白，大的东西都不急着证明自己。",
+    "tags": ["先秦", "寓言"]
+  },
+  {
+    "type": "book",
+    "title": "蒙田随笔",
+    "original": "Essais",
+    "year": 1580,
+    "status": "在看",
+    "score": 8.7,
+    "note": "他写自己，写着写着就写到了旁人。睡前两页正好。",
+    "tags": ["法国", "随笔"]
+  },
+  {
+    "type": "book",
+    "title": "城市与狗",
+    "original": "La ciudad y los perros",
+    "year": 1963,
+    "status": "看完",
+    "score": 8.9,
+    "note": "军校的暴力写得极冷，像一月的操场。",
+    "tags": ["拉美", "成长"]
+  },
+  {
+    "type": "book",
+    "title": "追忆似水年华",
+    "original": "À la recherche du temps perdu",
+    "year": 1913,
+    "status": "搁置",
+    "score": null,
+    "note": "第七次从贡布雷开始，又停在椴树茶那一页。",
+    "tags": ["法国", "长卷"]
+  }
+]

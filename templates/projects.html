@@ -1,0 +1,28 @@
+<header class="page-head">
+  <p class="page-kicker">{{sections.projects.en}} · {{sections.projects.kicker}}</p>
+  <h1 class="page-title">{{sections.projects.title}}</h1>
+  <figure class="epigraph">
+    <blockquote>{{epigraph.text}}</blockquote>
+    <figcaption>{{epigraph.note}}</figcaption>
+  </figure>
+  <p class="page-count">{{total}} 件，做过的与正在做的。</p>
+</header>
+
+<ol class="works-list">
+  {{#items}}
+  <li class="work-item" id="{{anchor}}">
+    <div class="work-main">
+      <p class="work-meta"><span class="work-status work-status-{{status_slug}}">{{status}}</span><span class="work-year">{{year}}</span></p>
+      <h2 class="work-title">{{title}}</h2>
+      <p class="work-sub">{{subtitle}}</p>
+      <p class="work-summary">{{summary}}</p>
+      <p class="work-stack">{{#stack}}<span class="tag">{{.}}</span>{{/stack}}</p>
+      <p class="work-links">{{#links}}<a href="{{url}}" target="_blank" rel="noopener noreferrer">{{label}} <i aria-hidden="true">↗</i></a>{{/links}}</p>
+    </div>
+  </li>
+  {{/items}}
+</ol>
+
+<section class="works-note">
+  <p>这里的链接多是占位地址，等你把仓库地址、线上地址填进 <code>content/projects.json</code> 就成真的了。</p>
+</section>
