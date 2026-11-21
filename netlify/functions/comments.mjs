@@ -94,21 +94,34 @@ export default async function handler(request) {
 
   if (payload.website) return json({ ok: true, spam: true });
 
-  // 管理员操作：删除单条（payload.id）或清空整页（action: purge）
+  // 管理员操作：删除单条（payload.id）或清空（payload.path 可选，省略则清空全部）
   if (payload.action === "delete" || payload.action === "purge") {
     const adminToken = process.env.ADMIN_TOKEN;
     if (!adminToken || request.headers.get("x-admin-token") !== adminToken) {
       return json({ error: "forbidden" }, 403);
     }
+
+    if (payload.action === "delete") {
+      const id = String(payload.id || "");
+      if (!id) return json({ error: "empty" }, 400);
+      const { blobs } = await store.list({ prefix: "c/" });
+      let removed = 0;
+      for (const blob of blobs) {
+        if (blob.key.includes(id)) {
+          await store.delete(blob.key);
+          removed += 1;
+        }
+      }
+      return json({ ok: true, removed });
+    }
+
     const scope = String(payload.path || "").slice(0, 200);
-    if (!scope) return json({ error: "empty" }, 400);
-    const { blobs } = await store.list({ prefix: `c/${hashPath(scope)}/` });
+    const prefix = scope ? `c/${hashPath(scope)}/` : "c/";
+    const { blobs } = await store.list({ prefix });
     let removed = 0;
     for (const blob of blobs) {
-      if (payload.action === "purge" || (payload.id && blob.key.includes(payload.id))) {
-        await store.delete(blob.key);
-        removed += 1;
-      }
+      await store.delete(blob.key);
+      removed += 1;
     }
     return json({ ok: true, removed });
   }
