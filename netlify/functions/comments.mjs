@@ -84,6 +84,25 @@ export default async function handler(request) {
 
   if (payload.website) return json({ ok: true, spam: true });
 
+  // 管理员操作：删除单条（payload.id）或清空整页（action: purge）
+  if (payload.action === "delete" || payload.action === "purge") {
+    const adminToken = process.env.ADMIN_TOKEN;
+    if (!adminToken || request.headers.get("x-admin-token") !== adminToken) {
+      return json({ error: "forbidden" }, 403);
+    }
+    const scope = String(payload.path || "").slice(0, 200);
+    if (!scope) return json({ error: "empty" }, 400);
+    const { blobs } = await store.list({ prefix: `c/${hashPath(scope)}/` });
+    let removed = 0;
+    for (const blob of blobs) {
+      if (payload.action === "purge" || (payload.id && blob.key.includes(payload.id))) {
+        await store.delete(blob.key);
+        removed += 1;
+      }
+    }
+    return json({ ok: true, removed });
+  }
+
   const name = String(payload.name || "").trim().slice(0, MAX_NAME);
   const body = String(payload.body || "").trim().slice(0, MAX_BODY);
   const target = String(payload.path || "").slice(0, 200);
