@@ -31,21 +31,36 @@
 
 被限流时，页面会提示"今天发得有点多，明天再来"。
 
-## 怎么删评论（管理员）
+## 怎么删评论
 
-评论以"每篇文章的路径哈希"分组存在 Blobs 里。删除需要管理员令牌，令牌在 Netlify 的
-**环境变量 `ADMIN_TOKEN`** 里（已为你生成）。
+### 管理页（推荐，点鼠标就行）
 
-**删一条：**
+打开 **<https://muzetr123.netlify.app/admin/comments/>**
+
+第一次打开要把管理员令牌粘进输入框（令牌在 Netlify → **Site configuration → Environment
+variables → `ADMIN_TOKEN`**），点「保存令牌」。之后在这台浏览器上会自动记住。
+
+能做的事：
+
+- 按文章分组列出所有评论（含"带图"标记）
+- 每条右边有「删除」
+- 每组右上角有「清空这篇」
+- 「打开文章 ↗」跳转到对应文章
+
+这个页面已经加了 `noindex` 和 `robots.txt` 屏蔽，不会被搜索引擎收录；没有令牌则什么也做不了。
+
+### 命令行（备用）
+
+评论以"每篇文章的路径哈希"分组存在 Blobs 里。**删一条：**
 
 ```bash
 curl -X POST https://muzetr123.netlify.app/api/comments \
   -H "content-type: application/json" \
   -H "x-admin-token: 你的ADMIN_TOKEN" \
-  -d '{"action":"delete","path":"/posts/zui-huasuan-de-shi/","id":"评论id"}'
+  -d '{"action":"delete","id":"评论id"}'
 ```
 
-**清空一篇文章的评论：**
+**清空一篇文章：**
 
 ```bash
 curl -X POST https://muzetr123.netlify.app/api/comments \
@@ -54,10 +69,15 @@ curl -X POST https://muzetr123.netlify.app/api/comments \
   -d '{"action":"purge","path":"/posts/zui-huasuan-de-shi/"}'
 ```
 
-评论 id 可以从 `GET /api/comments?path=...` 的返回里看到。
+**清空全部**（`path` 省略就是全部）：
 
-> 以后如果觉得用 curl 麻烦，可以让我给你做一个"评论管理页"（列表 + 删除按钮），
-> 打开就能点。
+```bash
+curl -X POST https://muzetr123.netlify.app/api/comments \
+  -H "content-type: application/json" \
+  -H "x-admin-token: 你的ADMIN_TOKEN" \
+  -d '{"action":"purge"}'
+```
+
 
 ## 怎么改外观
 
