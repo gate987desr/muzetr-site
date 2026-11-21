@@ -55,11 +55,6 @@ export default async function handler(request) {
   const pagePath = (url.searchParams.get("path") || "").slice(0, 200);
 
   if (request.method === "GET") {
-    if (url.searchParams.get("debug") === "muzetr") {
-      const all = await store.list({});
-      const keys = all.blobs.map((blob) => blob.key);
-      return json({ count: keys.length, keys: keys.slice(0, 30) });
-    }
     if (!pagePath) return json({ comments: [] });
     const prefix = `c/${hashPath(pagePath)}/`;
     const { blobs } = await store.list({ prefix });

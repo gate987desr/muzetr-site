@@ -3,29 +3,30 @@ cd /d "%~dp0"
 where git >nul 2>nul
 if errorlevel 1 (
   echo.
-  echo   Git is not installed. Download: https://git-scm.com/download/win
+  echo   Git is not installed or not in PATH.
   echo.
   pause
   exit /b 1
 )
 if not exist ".git" (
   echo.
-  echo   This folder is not a Git repository yet.
-  echo   Run these once inside this folder:
-  echo.
-  echo     git init
-  echo     git remote add origin YOUR_REPO_URL
-  echo     git branch -M main
+  echo   This folder is not a Git repository.
   echo.
   pause
   exit /b 1
 )
+echo.
+echo   [1/2] Building the site locally...
 python build.py
 if errorlevel 1 (
   pause
   exit /b 1
 )
+echo.
+echo   [2/2] Committing and pushing to GitHub...
 git add -A
-git commit -m "update site"
+git commit -m "update site" || echo   Nothing changed, skipping commit.
 git push
+echo.
+echo   Pushed. Netlify will rebuild in about a minute.
 pause

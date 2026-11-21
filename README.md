@@ -56,6 +56,8 @@ muzetr/
 │  ├─ friends.json      友链
 │  ├─ about.json        关于页
 │  └─ guestbook.json    留言板种子
+├─ netlify/functions/   评论区后端（comments.mjs / image.mjs）
+├─ package.json         后端依赖（@netlify/blobs）
 ├─ templates/           HTML 模板（改结构改这里）
 ├─ assets/              样式、脚本、字体、图片（改外观改这里）
 ├─ docs/                示意图
@@ -98,7 +100,8 @@ muzetr/
 - **私密文章**：正文在构建时加密，浏览器输入口令本地解密（PBKDF2 + HMAC 流密码）
 - **关于**：自我介绍、此刻、年表、手艺、通信方式、版本说明
 - **检索**：整站全文搜索，任意页面按 `Ctrl/⌘ + K` 唤出命令面板，或按 `/`
-- **留言板**：默认本地模式；填上 Giscus 仓库后自动切换成真留言板
+- **评论区**：每篇文章底部，昵称 + 文字 + 一张图片（≤2 MB），数据存 Netlify Blobs，**访客免注册**
+- **留言板**：整站留言页（本地演示模式；需要时可切换成评论区同款接口）
 - **显示设置**：日光纸 / 烛夜两套配色，三档字号，宋体 / 黑体切换（记忆在本地）
 - **RSS / Sitemap / robots / JSON-LD / OG 分享图**（构建时用 Pillow 生成 1200×630 卡片）
 - **PWA**：可安装到桌面，Service Worker 缓存静态资源
@@ -107,48 +110,43 @@ muzetr/
 
 ---
 
-## 五、部署到 muzetr.com
+## 五、部署（已接好 GitHub 自动部署）
 
-三条路，任选一条。域名都在你的注册商后台做 DNS 解析。
+网站托管在 **Netlify**，代码在 **GitHub**。每次推送代码，Netlify 自动构建上线，
+**不再需要手动传 zip**。
 
-### 1) GitHub Pages（免费，最稳）
+### 日常更新：双击桌面「⑤ 更新到网站」
 
-1. 建一个 GitHub 仓库，把 `muzetr/` 里的文件推上去（`public/` 可以不入库，CI 会生成）。
-2. 仓库 **Settings → Pages → Build and deployment → Source** 选 **GitHub Actions**。
-3. 推送到 `main` 分支，`.github/workflows/deploy.yml` 会自动构建并发布。
-4. 在 **Custom domain** 里填 `muzetr.com`，再按提示配置 DNS：
+它依次做三件事：本地构建 → 提交 → 推送。大约 1 分钟后线上更新。
 
-| 类型 | 主机记录 | 值 |
-| --- | --- | --- |
-| A | `@` | `185.199.108.153` |
-| A | `@` | `185.199.109.153` |
-| A | `@` | `185.199.110.153` |
-| A | `@` | `185.199.111.153` |
-| CNAME | `www` | `你的用户名.github.io` |
-
-5. 勾选 **Enforce HTTPS**。
-
-### 2) Netlify
-
-把 `muzetr/` 推到 GitHub 后，在 Netlify「Add new site → Import an existing project」选这个仓库。
-`netlify.toml` 已经写好了（`publish = "public"`，`command = "python3 build.py"`）。
-然后在 **Domain management** 里添加 `muzetr.com`，按提示把 DNS 指到 Netlify。
-
-### 3) Vercel
+### 或者用命令
 
 ```bash
-npm i -g vercel      # 或者直接把 public/ 拖进 vercel.com
-cd muzetr
 python build.py
-vercel --prod
+git add -A
+git commit -m "update"
+git push
 ```
 
-`vercel.json` 里已经把输出目录设成 `public`。域名在 Vercel 项目的 **Settings → Domains** 里加。
+### 仓库与站点
 
-> 小提示：OG 分享图需要 Pillow（`pip install pillow`）和一款中文字体。
-> 生成不了时会自动退回默认分享图，不影响网站本身。
+| 项目 | 值 |
+| --- | --- |
+| GitHub 仓库 | <https://github.com/gate987desr/muzetr-site>（公开） |
+| 站点地址 | <https://muzetr123.netlify.app> |
+| 构建命令 | `python3 build.py` |
+| 发布目录 | `public` |
+| Functions 目录 | `netlify/functions` |
+| 环境变量 | `ADMIN_TOKEN`（评论管理，见 [COMMENTS.md](COMMENTS.md)） |
 
----
+> **仓库为什么是公开的**：Netlify 免费版对私有仓库只允许"已验证的团队成员"推送，
+> 本地的提交身份和 Netlify 账号匹配不上，构建会被拦（报 `Unrecognized Git contributor`）。
+> 公开仓库没有这个限制，而仓库里没有任何密码或密钥。
+
+### 关于 muzetr.com
+
+`muzetr.com` 不在你名下（注册商 Natro，2027-07-15 到期），所以现在用的是
+`muzetr123.netlify.app`。以后买了新域名，按 [START-HERE.md](START-HERE.md) 的 4.4 节绑定即可。
 
 ## 六、关于「私密文章」的诚实说明
 
