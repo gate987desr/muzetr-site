@@ -2,7 +2,7 @@
 title: 庞加莱回归
 date: 2026-11-22
 category: 创作
-tags: [小说, 毕业, 时间]
+tags: [小说, 毕业, 时间, 新概念]
 summary: 毕业那天我才知道，所谓庞加莱回归，就是你们还会回来，只是我等不到。
 featured: false
 ---

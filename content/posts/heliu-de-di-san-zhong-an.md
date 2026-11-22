@@ -2,7 +2,7 @@
 title: 河流的第三种岸
 date: 2026-11-22
 category: 创作
-tags: [小说, 记忆, 河流]
+tags: [小说, 记忆, 河流, 新概念]
 summary: 祖父用六十年，在一册没有封面的笔记里，藏起了一整条不存在的河。
 featured: false
 ---

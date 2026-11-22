@@ -2,7 +2,7 @@
 title: 末日众生
 date: 2026-11-22
 category: 创作
-tags: [小说, 末日, 校园]
+tags: [小说, 末日, 校园, 新概念]
 summary: 大一开学那天，林越的行李箱里七成是物资。一年后，宿舍里的人都开始感谢他。
 featured: false
 ---
